@@ -1950,6 +1950,9 @@
 "@modules/photo-editing@file:./modules/photo-editing":
   version "1.0.0"
 
+"@modules/photo-editing@file:./modules/photo-editing/":
+  version "1.0.0"
+
 "@modules/social-login@file:./modules/social-login":
   version "1.0.0"
   dependencies:
@@ -1966,12 +1969,6 @@
   version "1.0.0"
 
 "@modules/user-profile@file:./modules/user-profile":
-  version "1.0.0"
-  dependencies:
-    "@react-navigation/native" "^5.9.2"
-    react-native-elements "^2.3.2"
-
-"@modules/user-profile@file:./modules/user-profile/":
   version "1.0.0"
   dependencies:
     "@react-navigation/native" "^5.9.2"
@@ -8761,10 +8758,10 @@ react-native-image-crop-picker@0.36.2:
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.36.2.tgz#fcb35c1a12d805bedbb6d94a87078e86a6c9b49f"
   integrity sha512-cTauoEHHzx14ZHA7Pt65e7RVnbn1WRYQz2ufTZp9/05EtNDrdsXwNhgtXdWVFbOhYB8qgUFQjy2NelkBOHIH3g==
 
-react-native-image-picker@4.7.3:
-  version "4.7.3"
-  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.7.3.tgz#f5863b27bf2e76c83649dd8efea4598426bd04e8"
-  integrity sha512-eRKm4wlsmZHmsWFyv77kYc2F+ZyEVqe0m7mqhsMzWk6TQT4FBDtEDxmRDDFq+ivCu/1QD+EPhmYcAIpeGr7Ekg==
+react-native-image-picker@4.8.3:
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.3.tgz#a74801e8428325133a42dcd818fa54f08e6b20e6"
+  integrity sha512-mA3xKN8TtXpLl3Aoo65ArZvusv3gCsbe3/hsOLKI1DcC+QcYPcDnsYK/ft05rWBj4BdiJ9E2JoveiHNtU8W9GA==
 
 react-native-image-resizer@1.4.5:
   version "1.4.5"
