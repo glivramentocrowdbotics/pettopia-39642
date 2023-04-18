@@ -1,115 +1,24 @@
-import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-  FlatList,
-  Image,
-  Pressable
-} from "react-native";
+import React from "react";
+import { Text, StyleSheet, View, Image, Pressable } from "react-native";
 
-const ChatListingScreen = params => {
-  const [username, setUsername] = useState("");
-  const [messages, setMessages] = useState([]);
-  useEffect(() => {
-    setMessages([
-      {
-        id: 1,
-        name: "Cody Fisher",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        profileImage: require("./assets/profile.png"),
-        unread: 1,
-        isOnline: true,
-        lastTime: "15 min"
-      },
-      {
-        id: 2,
-        name: "Jenny Wilson",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        profileImage: require("./assets/profile.png"),
-        unread: 2,
-        isOnline: true,
-        lastTime: "1 hour"
-      },
-      {
-        id: 3,
-        name: "Johnny Watson",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        profileImage: require("./assets/profile.png"),
-        unread: 0,
-        isOnline: true,
-        lastTime: "2 hours"
-      },
-      {
-        id: 4,
-        name: "Ralph Williams",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        profileImage: require("./assets/profile.png"),
-        unread: 0,
-        isOnline: false,
-        lastTime: "3 hours"
-      },
-      {
-        id: 5,
-        name: "Guy Hawkins",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        profileImage: require("./assets/profile.png"),
-        unread: 0,
-        isOnline: false,
-        lastTime: "Mon"
-      },
-      {
-        id: 6,
-        name: "Morris Henery",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        profileImage: require("./assets/profile.png"),
-        unread: 0,
-        isOnline: false,
-        lastTime: "Tue"
-      },
-      {
-        id: 7,
-        name: "Irma Flores",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        profileImage: require("./assets/profile.png"),
-        unread: 0,
-        isOnline: false,
-        lastTime: "Wed"
-      }
-    ]);
-  }, []);
+const UploadMediaScreen = (params) => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputText}>Search</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={text => setUsername(text)}
-            value={username}
-            placeholder="Search Username"
-            placeholderTextColor="#9B9B9B"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <Image
-            source={require("./assets/searchIcon.png")}
-            style={styles.searchIcon}
-          />
+      <View style={styles.menu}>
+        <View style={styles.menuItem}>
+          <Text style={styles.menuItemText}>Take photo or video</Text>
+          <Image source={require("./assets/cameraIcon.png")} />
+        </View>
+        <View style={styles.menuItem}>
+          <Text style={styles.menuItemText}>Photo Library</Text>
+          <Image source={require("./assets/libraryIcon.png")} />
+        </View>
+        <View style={styles.menuItem}>
+          <Text style={styles.menuItemText}>Browse</Text>
+          <Image source={require("./assets/menuIcon.png")} />
         </View>
       </View>
-      <TabView tabTitles={["Select all", "Delete selected"]} selected={0} />
-      <FlatList
-        data={messages}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => <ChatListingItem message={item} />}
-      />
-      <View style={styles.newBtn}>
-        <Pressable>
-          <Image source={require("./assets/plusIcon.png")} />
-        </Pressable>
-      </View>
+      <Button buttonText="Cancel" outline={true} />
     </View>
   );
 };
@@ -118,189 +27,73 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "flex-start"
-  },
-  header: {
     padding: 20,
-    // flex: 1,
-    height: 100
+    justifyContent: "flex-end"
   },
-  inputContainer: {
-    flexDirection: "column",
-    flex: 1,
-    justifyContent: "center",
-    marginHorizontal: 5
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderColor: "#ccc"
   },
-  inputText: {
-    fontSize: 16,
-    marginLeft: 20,
-    color: "#111112"
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#e6e6e6",
-    borderRadius: 10,
-    padding: 10,
-    paddingLeft: 20,
-    marginVertical: 10,
-    width: "100%",
-    height: 50
-  },
-  searchIcon: {
-    position: "absolute",
-    right: 30,
-    top: 35
-  },
-  newBtn: {
-    position: "absolute",
-    backgroundColor: "black",
-    bottom: 30,
-    right: 30,
-    padding: 20,
-    borderRadius: 50,
-    elevation: 10,
-    shadowColor: "grey"
+  menuItemText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#000",
+    textAlign: "left"
   }
 });
-export default ChatListingScreen;
+export default UploadMediaScreen;
 
-const ChatListingItem = ({ message }) => {
+const Button = (params) => {
+  const btnStyle = {
+    backgroundColor: params.outline ? "#fff" : "#000",
+    borderColor: params.outline ? "#000" : "#fff",
+    borderWidth: 1
+  };
+  const btnText = {
+    color: params.outline ? "#000" : "#fff"
+  };
   return (
-    <View style={chatListingItemStyles.chatListingItem}>
-      <Image
-        source={message.profileImage}
-        style={chatListingItemStyles.profileImage}
-      />
-      {(message.isOnline && (
-        <Image
-          source={require("./assets/onlineIcon.png")}
-          style={chatListingItemStyles.activityDot}
-        />
-      )) ||
-        null}
-      <View style={chatListingItemStyles.chatListingItemInfo}>
-        <Text style={chatListingItemStyles.username}>{message.name}</Text>
-        <Text style={chatListingItemStyles.message}>{message.message}</Text>
-      </View>
-      <View style={chatListingItemStyles.chatListingItemTime}>
-        <Text style={chatListingItemStyles.time}>{message.lastTime}</Text>
-        {(message.unread > 0 && (
-          <View style={chatListingItemStyles.unread}>
-            <Text
-              style={{
-                color: "#fff"
-              }}>
-              {message.unread}
-            </Text>
-          </View>
-        )) ||
-          null}
-      </View>
+    <View style={buttonStyles.btnContainer}>
+      <Pressable style={[buttonStyles.btn, btnStyle]} onPress={params.onPress}>
+        <Text style={[buttonStyles.btnText, btnText]}>{params.buttonText}</Text>
+        <View style={styles.childrenContainer}>{params.children}</View>
+      </Pressable>
     </View>
   );
 };
 
-const chatListingItemStyles = StyleSheet.create({
-  chatListingItem: {
-    flexDirection: "row",
+const buttonStyles = StyleSheet.create({
+  btnContainer: {
+    paddingTop: 10,
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    marginTop: 20
+  },
+  btn: {
+    backgroundColor: "black",
+    height: 50,
+    width: "100%",
+    padding: 10,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    justifyContent: "center",
     alignItems: "center",
-    borderColor: "#e6e6e6",
-    borderBottomWidth: 1,
-    marginHorizontal: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 20,
-    height: 100
+    shadowColor: "rgba(0, 0, 0, 0.2)",
+    elevation: 10,
+    flexDirection: "row"
   },
-  profileImage: {
-    width: 70,
-    height: 70
-  },
-  activityDot: {
-    position: "absolute",
-    left: 65,
-    bottom: 20
-  },
-  chatListingItemInfo: {
-    flex: 1,
-    marginHorizontal: 15
-  },
-  username: {
+  btnText: {
+    color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#111112"
-  },
-  message: {
-    fontSize: 14,
-    color: "grey"
-  },
-  chatListingItemTime: {
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: 60
-  },
-  time: {
-    fontSize: 14,
-    color: "grey",
     fontWeight: "bold"
   },
-  unread: {
-    fontSize: 14,
-    backgroundColor: "black",
-    width: 30,
-    height: 30,
-    color: "#fff",
-    alignItems: "center",
+  childrenContainer: {
     justifyContent: "center",
-    borderRadius: 9
-  }
-});
-
-const TabView = ({ tabTitles, selected }) => {
-  return (
-    <View style={tabViewStyles.paletteContainer}>
-      {tabTitles.map((title, index) => (
-        <View
-          style={
-            index === selected
-              ? tabViewStyles.selected
-              : tabViewStyles.unSelected
-          }
-          key={index}>
-          <Text>{title}</Text>
-        </View>
-      ))}
-    </View>
-  );
-};
-
-const tabViewStyles = StyleSheet.create({
-  paletteContainer: {
-    width: "70%",
-    height: 48,
-    backgroundColor: "#F1F1F1",
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 10,
-    padding: 6,
-    marginVertical: 10,
-    marginHorizontal: 20
-  },
-  selected: {
-    borderRadius: 10,
-    flex: 1,
-    backgroundColor: "#fff",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "gray",
-    elevation: 10
-  },
-  unSelected: {
-    flex: 1,
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F1F1F1",
-    borderRadius: 10
+    alignItems: "center"
   }
 });
