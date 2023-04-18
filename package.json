@@ -24,7 +24,7 @@
     "@modules/social-login": "file:./modules/social-login/",
     "@modules/splash": "file:./modules/splash/",
     "@modules/user-profile": "file:./modules/user-profile/",
-    "@react-native-community/cameraroll": "4.1.2",
+    "@react-native-community/cameraroll": "^4.1.2",
     "@react-native-community/checkbox": "0.5.10",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/push-notification-ios": "^1.8.0",
