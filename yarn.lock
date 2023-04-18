@@ -1941,6 +1941,9 @@
 "@modules/maps@file:./modules/maps":
   version "1.0.0"
 
+"@modules/maps@file:./modules/maps/":
+  version "1.0.0"
+
 "@modules/onboarding@file:./modules/onboarding":
   version "1.0.0"
   dependencies:
