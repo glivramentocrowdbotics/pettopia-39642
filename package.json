@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@modules/chat": "file:./modules/chat/",
+    "@modules/faq": "file:./modules/faq",
     "@modules/onboarding": "file:./modules/onboarding/",
     "@modules/splash": "file:./modules/splash/",
     "@react-native-community/checkbox": "0.5.10",
