@@ -1947,12 +1947,6 @@
     prop-types "^15.8.1"
     react-native-app-intro-slider "^4.0.4"
 
-"@modules/onboarding@file:./modules/onboarding/":
-  version "1.0.0"
-  dependencies:
-    prop-types "^15.8.1"
-    react-native-app-intro-slider "^4.0.4"
-
 "@modules/photo-editing@file:./modules/photo-editing":
   version "1.0.0"
 
@@ -8756,10 +8750,10 @@ react-native-google-places-autocomplete@2.4.1:
     prop-types "^15.7.2"
     qs "~6.9.1"
 
-react-native-image-crop-picker@^0.36.2:
-  version "0.36.4"
-  resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.36.4.tgz#13a659fc296bea695a88a36de9eacd1e4aebc9b8"
-  integrity sha512-FOWkYbCEh78V5/aK9HqMSvRnQJtelGwj0UOu1zhE49gO6e4YoKKNBvA15jweAMM/kPA+omDXBIgJaruonoEXGA==
+react-native-image-crop-picker@0.36.2:
+  version "0.36.2"
+  resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.36.2.tgz#fcb35c1a12d805bedbb6d94a87078e86a6c9b49f"
+  integrity sha512-cTauoEHHzx14ZHA7Pt65e7RVnbn1WRYQz2ufTZp9/05EtNDrdsXwNhgtXdWVFbOhYB8qgUFQjy2NelkBOHIH3g==
 
 react-native-image-picker@4.7.3:
   version "4.7.3"
