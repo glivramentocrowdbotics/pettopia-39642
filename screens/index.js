@@ -1,244 +1,275 @@
-import React from "react";
-import { Text, Image, StyleSheet, View, TouchableHighlight, ScrollView, TextInput } from "react-native";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  Pressable,
+  Image
+} from "react-native";
 
-const BillingScreen = () => {
+const SubscriptionTrial = () => {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.headerCard}>
-          <View style={styles.cardContent}>
-            <Text style={styles.cardTextOne}>Order</Text>
-            <Text style={styles.cardTextOne}>30.75$</Text>
-          </View>
-          <View style={styles.cardContent}>
-            <Text style={styles.cardTextOne}>Delivery</Text>
-            <Text style={styles.cardTextOne}>1.25$</Text>
-          </View>
-          <View style={styles.cardContent}>
-            <Text style={styles.cardTextTwo}>Summary</Text>
-            <Text style={styles.cardTextTwo}>32.00$</Text>
-          </View>
+    <View style={styles.container}>
+      <ScrollView>
+        <Text style={styles.heading}>Free tiral period</Text>
+        <View style={styles.daysContainer}>
+          <Text style={styles.days}>30</Text>
+          <Text>Days</Text>
         </View>
-        <View style={styles.deliveryDetailsContainer}>
-          <Text style={styles.deliveryDetails}>Delivery details</Text>
-          <Text style={styles.label}>
-            Address
-          </Text>
-          <View style={styles.inputIcon}>
-            <Input value="Maple Ave, Los Angeles" style={styles.inputStyle} placeholder='Enter'/>
-            <Image style={styles.icon} source={require("./assets/check.png")}/>
-          </View>
+        <Text style={styles.description}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non at sed.
+        </Text>
+        <View style={styles.separator}>
+          <View style={styles.bar} />
+          <Text style={styles.separatorText}>Or</Text>
+          <View style={styles.bar} />
         </View>
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <View style={styles.btnContainer}>
-          <Button>
-            Proceed
-          </Button>
+        <Text style={styles.periodHeading}>Choose your period</Text>
+        <View style={styles.inputsContainer}>
+          <Input
+            text="Start date"
+            value={startDate}
+            onChange={setStartDate}
+            containerStyle={styles.input}
+          />
+          <Input
+            text="End date"
+            value={endDate}
+            onChange={setEndDate}
+            containerStyle={styles.input}
+          />
         </View>
-      </View>
-    </ScrollView>
+        <Button buttonText="Ok" style={styles.button} />
+      </ScrollView>
+    </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     flex: 1,
-    backgroundColor: "#FFF"
+    backgroundColor: "#fff"
   },
-  headerCard: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-    marginVertical: 10,
-    backgroundColor: "#FFF",
-    shadowColor: "rgba(0, 0, 0, 0.4)",
-    elevation: 15,
-    borderRadius: 8
-  },
-  cardContent: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 3
-  },
-  cardTextOne: {
-    fontSize: 13,
-    color: "#424347"
-  },
-  cardTextTwo: {
-    fontSize: 16,
+  heading: {
+    fontSize: 28,
     fontWeight: "bold",
-    color: "#424347"
+    color: "#000",
+    textAlign: "center"
   },
-  deliveryDetailsContainer: {
-    marginBottom: 20
-  },
-  deliveryDetails: {
-    padding: 20,
-    fontWeight: "bold",
-    fontSize: 14,
-    color: "#1E2022"
-  },
-  label: {
-    fontSize: 14,
-    paddingLeft: 20,
-    paddingBottom: 10
-  },
-  inputIcon: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderWidth: 0.5,
-    borderColor: "#C4C4C4",
-    borderRadius: 10
-  },
-  inputStyle: {
-    flex: 1,
-    borderWidth: 0
-  },
-
-  icon: {
-    height: 18,
-    width: 18,
-    marginRight: 10
-  },
-  btnContainer: {
-    marginVertical: 20,
-    paddingHorizontal: "10%"
-  }
-});
-
-export default BillingScreen;
-
-const OrderCard = () => {
-  return (
-    <View style={orderStyles.container}>
-      <View style={orderStyles.order}>
-        <View style={orderStyles.image}>
-          <Image source={require("./assets/edit.png")} />
-        </View>
-        <View style={orderStyles.description}>
-          <Text style={orderStyles.orderName}>Order name</Text>
-          <Text style={orderStyles.quantity}>Quantity: 1</Text>
-          <Text style={orderStyles.inStock}>In stock</Text>
-        </View>
-      </View>
-      <View>
-        <Text style={orderStyles.orderPrice}>$10.25</Text>
-      </View>
-    </View>
-  );
-};
-
-const orderStyles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 12,
-    marginVertical: 10,
-    backgroundColor: "#FFF",
-    shadowColor: "rgba(0, 0, 0, 0.2)",
-    elevation: 15,
-    borderRadius: 10
-  },
-  fontWeightBold: {
-    fontWeight: "bold"
-  },
-  order: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 5
-  },
-  image: {
-    height: 60,
-    width: 60,
-    borderRadius: 30,
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
+  daysContainer: {
+    width: 130,
+    height: 130,
+    borderRadius: 70,
+    borderColor: "#12D790",
+    borderWidth: 12,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 10
+    alignSelf: "center",
+    marginVertical: 20
+  },
+  days: {
+    fontSize: 36,
+    fontWeight: "bold"
   },
   description: {
-    flexDirection: "column",
-    justifyContent: "space-between"
+    fontSize: 14,
+    color: "#888888",
+    textAlign: "center",
+    paddingHorizontal: 40
   },
-  orderName: {
-    fontSize: 15,
-    fontWeight: "bold"
-  },
-  quantity: {
-    fontSize: 13,
-    color: "#3E3E3E"
-  },
-  inStock: {
-    fontSize: 13,
-    color: "#12D790"
-  },
-  orderPrice: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginRight: 10
-  }
-});
-
-const Button = (props) => {
-  return (
-    <TouchableHighlight onPress={props.onPress} underlayColor='#DDDDDD'>
-      <View style={[btnStyles.button, {
-        backgroundColor: props.backgroundColor ? props.backgroundColor : "#000000",
-        height: props.height ? props.height : 49,
-        borderWidth: props.borderWidth ? props.borderWidth : 0,
-        borderColor: props.borderColor ? props.borderColor : "#000000"
-      }]}>
-        <Text style={[btnStyles.text, { color: props.color ? props.color : "#ffffff" }]}>{props.children}</Text>
-      </View>
-    </TouchableHighlight>
-  );
-};
-
-const btnStyles = StyleSheet.create({
-  button: {
-    display: "flex",
+  separator: {
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10
+    marginVertical: 20
   },
-  text: {
-    fontWeight: "bold",
-    fontSize: 15
+  bar: {
+    width: 100,
+    height: 1,
+    backgroundColor: "#e6e6e6"
+  },
+  separatorText: {
+    fontSize: 14,
+    color: "#888888",
+    marginHorizontal: 30
+  },
+  periodHeading: {
+    fontSize: 18,
+    color: "#000",
+    textAlign: "center",
+    marginVertical: 10,
+    fontWeight: "bold"
+  },
+  inputsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    padding: 20
+  },
+  input: {
+    flex: 1,
+    marginHorizontal: 5
+  },
+  button: {
+    marginHorizontal: 40,
+    marginTop: 60,
+    marginBottom: 20
   }
 });
 
-const Input = (props) => {
+export default SubscriptionTrial;
+
+const Input = props => {
   return (
-    <View>
+    <View style={[inputStyles.inputContainer, props.containerStyle]}>
+      {props.text
+        ? (
+        <Text style={inputStyles.inputText}>{props.text}</Text>
+          )
+        : null}
+
       <TextInput
-        style={inputStyles.input}
-        placeholder={props.placeholder}
+        style={[
+          inputStyles.input,
+          props.style,
+          props.textArea ? inputStyles.textArea : null
+        ]}
+        placeholder={props.placeholder ? props.placeholder : "Enter"}
         value={props.value}
-        onChangeText={props.setValue}
-        placeholderTextColor='#ddd'
+        onChangeText={() => props.onChange()}
+        placeholderTextColor={
+          props.placeholderTextColor ? props.placeholderTextColor : "#9B9B9B"
+        }
+        editable={props.editable !== false}
+        autoCapitalize="none"
+        autoCorrect={false}
+        multiline={!!props.textArea}
+        backgroundColor={props.backgroundColor}
+        secureTextEntry={props.secureTextEntry}
       />
-      {props.errorText ? <Text style={inputStyles.error}>{props.errorText}</Text> : null}
+      {props.errorText
+        ? (
+        <Text style={inputStyles.error}>{props.errorText}</Text>
+          )
+        : null}
+      {props.icon
+        ? (
+        <Pressable
+          onPress={() => props.iconOnPress()}
+          style={inputStyles.iconWithText}>
+          <Image source={props.icon} style={inputStyles.icon} />
+        </Pressable>
+          )
+        : null}
+      <View style={styles.children}>{props.children}</View>
     </View>
   );
 };
+
 const inputStyles = StyleSheet.create({
-  input: {
-    backgroundColor: "#fff",
-    height: 49,
-    color: "#000",
-    borderRadius: 10,
-    fontSize: 14,
-    paddingHorizontal: 15
+  inputContainer: {
+    flexDirection: "column",
+    justifyContent: "center"
   },
-  error: {
-    fontSize: 13,
-    color: "#FA060D",
-    paddingTop: 8
+  inputText: {
+    fontSize: 14,
+    marginLeft: 20,
+    color: "#111112"
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#e6e6e6",
+    borderRadius: 10,
+    padding: 10,
+    paddingLeft: 20,
+    marginVertical: 10,
+    width: "100%",
+    height: 50,
+    color: "#000"
+  },
+  iconWithText: {
+    position: "absolute",
+    right: 30,
+    bottom: 25,
+    width: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1
+  },
+  icon: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain"
+  },
+  textArea: {
+    height: 150
+  },
+  children: {}
+});
+
+const Button = params => {
+  const backgroundColor = params.backgroundColor || "#000";
+  const textColor = params.textColor || "#fff";
+  const btnStyle = {
+    backgroundColor: backgroundColor,
+    borderColor: params.borderColor || backgroundColor,
+    borderWidth: 1
+  };
+  const btnText = {
+    color: textColor
+  };
+  return (
+    <View style={[buttonStyles.btnContainer, params.style]}>
+      <View style={!params.hideShadow ? buttonStyles.shadowContainer : null}>
+        <Pressable
+          style={[buttonStyles.btn, btnStyle]}
+          onPress={params.onPress}>
+          <Text style={[buttonStyles.btnText, btnText]}>
+            {params.buttonText}
+          </Text>
+          <View style={styles.childrenContainer}>{params.children}</View>
+        </Pressable>
+      </View>
+    </View>
+  );
+};
+
+const buttonStyles = StyleSheet.create({
+  btnContainer: {
+    justifyContent: "center"
+  },
+  shadowContainer: {
+    shadowColor: "rgba(0, 0, 0, 0.5)",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 10,
+    backgroundColor: "#fff",
+    borderRadius: 10
+  },
+  btn: {
+    height: 50,
+    padding: 10,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+
+    flexDirection: "row"
+  },
+  btnText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold"
+  },
+  childrenContainer: {
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
