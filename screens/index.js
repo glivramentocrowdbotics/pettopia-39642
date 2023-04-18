@@ -3,199 +3,184 @@ import {
   Text,
   StyleSheet,
   View,
+  SafeAreaView,
   TextInput,
   Image,
-  ScrollView
+  FlatList,
+  Pressable
 } from "react-native";
 
-const SocialFollowersScreen = (params) => {
-  const [value, setValue] = useState("");
-  const [frequentlyContacted, setFrequentlyContacted] = useState([]);
-  const [followers, setFollowers] = useState([]);
-  const [numFollowers, setNumFollowers] = useState(0);
+const SocialBlockedUsersScreen = params => {
+  const [followers, setFollowers] = useState();
+  const [username, setUsername] = useState("");
+  const [blockedUsers, setBlockedUsers] = useState([]);
   useEffect(() => {
-    setFrequentlyContacted([
+    setFollowers(4513);
+    setBlockedUsers([
       {
+        id: 1,
+        name: "John Doe",
+        profileImage: require("./assets/profile.png")
+      },
+      {
+        id: 2,
         name: "Cody Fisher",
-        image: require("./assets/profile.png"),
-        follow: false
+        profileImage: require("./assets/profile.png")
       },
       {
-        name: "Johnny watson",
-        image: require("./assets/profile.png"),
-        follow: true
-      },
-      {
+        id: 3,
         name: "Jenny Wilson",
-        image: require("./assets/profile.png"),
-        follow: true
+        profileImage: require("./assets/profile.png")
       }
     ]);
-    setFollowers([
-      {
-        name: "Alpha Edwards",
-        image: require("./assets/profile.png")
-      },
-      {
-        name: "Anthony Hawks",
-        image: require("./assets/profile.png")
-      },
-      {
-        name: "And Henry",
-        image: require("./assets/profile.png")
-      },
-      {
-        name: "Alpha Edwards",
-        image: require("./assets/profile.png")
-      }
-    ]);
-    setNumFollowers(4513);
   }, []);
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.searchBar}>
-          <Text style={styles.searchText}>Search</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={textStyles.input}
-              placeholder="Enter"
-              value={value}
-              onChangeText={(text) => setValue(text)}
-              placeholderTextColor="#ddd"
-            />
-            <Image
-              source={require("./assets/search.png")}
-              style={styles.searchIcon}
-            />
-          </View>
-        </View>
-        <Text style={styles.numFollowers}>{numFollowers} Followers</Text>
-        <View style={styles.separator}>
-          <Text style={styles.separatorText}>Frequently</Text>
-        </View>
-        <View>
-          {frequentlyContacted.map((follower, index) => (
-            <Follower
-              key={index}
-              name={follower.name}
-              image={follower.image}
-              follow={follower.follow}
-            />
-          ))}
-        </View>
-        <View style={styles.separator}>
-          <Text style={styles.separatorText}>A</Text>
-        </View>
-        <View>
-          {followers.map((follower, index) => (
-            <Follower key={index} name={follower.name} image={follower.image} />
-          ))}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputText}>Search</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setUsername(text)}
+            value={username}
+            placeholder="Search Username"
+            placeholderTextColor="#9B9B9B"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <Image
+            source={require("./assets/Vector.png")}
+            style={styles.searchIcon}
+          />
         </View>
       </View>
-    </ScrollView>
+      <View style={styles.follower_blocked}>
+        <Text style={[styles.grey]}>{followers} Followers</Text>
+        <Text style={[styles.bold, styles.black]}>Blocked Accounts</Text>
+      </View>
+      <View style={styles.frequentBar}>
+        <Text style={[styles.fnt16, styles.bold, styles.grey]}>Frequently</Text>
+      </View>
+      <FlatList
+        data={blockedUsers}
+        keyExtractor={(item, index) => item.id.toString()}
+        renderItem={({ item }) => <User user={item} />}
+      />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    justifyContent: "flex-start"
   },
-  searchBar: {
-    padding: 20
-  },
-  searchText: {
-    marginLeft: 10,
-    marginBottom: 10
+  header: {
+    padding: 20,
+    // flex: 1,
+    height: 100
   },
   inputContainer: {
+    flexDirection: "column",
+    flex: 1,
+    justifyContent: "center",
+    marginHorizontal: 5
+  },
+  inputText: {
+    fontSize: 16,
+    marginLeft: 20,
+    color: "#111112"
+  },
+  input: {
     borderWidth: 1,
+    borderColor: "#e6e6e6",
     borderRadius: 10,
-    borderColor: "#C4C4C4",
-    flexDirection: "row",
-    alignItems: "center"
+    padding: 10,
+    paddingLeft: 20,
+    marginVertical: 10,
+    width: "100%",
+    height: 50
   },
   searchIcon: {
     position: "absolute",
-    right: 20
+    right: 30,
+    top: 35
   },
-  text: {
-    marginLeft: 30,
-    marginBottom: 10
+  follower_blocked: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 30
   },
-  numFollowers: {
-    marginLeft: 30,
-    marginBottom: 10,
-    fontSize: 14
+  frequentBar: {
+    paddingHorizontal: 40,
+    paddingVertical: 15,
+    backgroundColor: "#e6e6e6",
+    marginVertical: 10
   },
-  separator: {
-    height: 50,
-    width: "100%",
-    backgroundColor: "#DADADA",
-    flexDirection: "column",
-    justifyContent: "center"
+  fnt16: {
+    fontSize: 16
   },
-  separatorText: {
-    marginLeft: 30,
-    color: "#8F8D86"
+  bold: {
+    fontWeight: "bold"
+  },
+  grey: {
+    color: "grey"
+  },
+  black: {
+    color: "black"
   }
 });
-export default SocialFollowersScreen;
+export default SocialBlockedUsersScreen;
 
-const Follower = (props) => {
+const User = ({ user }) => {
   return (
-    <View style={FollowerStyles.follower}>
-      <View style={FollowerStyles.main}>
-        <View style={FollowerStyles.image}>
-          <Image
-            style={FollowerStyles.image}
-            source={require("./assets/profile.png")}
-          />
-        </View>
-        <Text>{props.name}</Text>
+    <View style={useStyles.userContainer}>
+      <View style={useStyles.userInfo}>
+        <Image source={user.profileImage} style={useStyles.profileImage} />
+        <Text style={useStyles.username}>{user.name}</Text>
       </View>
-      {props.follow && <Text>Follow</Text>}
+      <Pressable style={useStyles.btnContainer}>
+        <Text style={useStyles.btntext}>Unblock</Text>
+      </Pressable>
     </View>
   );
 };
 
-const FollowerStyles = StyleSheet.create({
-  follower: {
-    marginHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#e6e6e6",
+const useStyles = StyleSheet.create({
+  userContainer: {
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 10,
     paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e6e6e6",
+    marginHorizontal: 20,
     justifyContent: "space-between"
   },
-  main: {
+  userInfo: {
+    flex: 2,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "flex-start"
   },
-  image: {
-    height: 60,
-    width: 60,
-    borderRadius: 30,
-    marginRight: 15,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
-  }
-});
-const textStyles = StyleSheet.create({
-  input: {
-    backgroundColor: "#fff",
-    height: 53,
-    color: "#000",
-    borderRadius: 10,
-    fontSize: 14,
-    paddingHorizontal: 10
+  profileImage: {
+    borderRadius: 50,
+    width: 70,
+    height: 70,
+    resizeMode: "contain"
   },
-  error: {
-    fontSize: 13,
-    color: "#FA060D",
-    paddingTop: 8
+  username: {
+    fontSize: 16,
+    marginLeft: 20,
+    color: "#111112"
+  },
+  btnContainer: {
+    flex: 1,
+    alignItems: "flex-end"
+  },
+  btntext: {
+    fontSize: 17,
+    color: "#12D790"
   }
 });
