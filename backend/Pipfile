@@ -35,3 +35,4 @@ django-import-export = "*"
 drf-spectacular = "~=0.25.1"
 cb-camera = {editable = true, path = "./modules/camera"}
 cb-firebase-push-notifications = {editable = true, path = "./modules/firebase_push_notifications"}
+cb-payments = {editable = true, path = "./modules/payments"}
