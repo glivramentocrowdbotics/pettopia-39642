@@ -1947,12 +1947,6 @@
     prop-types "^15.8.1"
     react-native-app-intro-slider "^4.0.4"
 
-"@modules/onboarding@file:./modules/onboarding/":
-  version "1.0.0"
-  dependencies:
-    prop-types "^15.8.1"
-    react-native-app-intro-slider "^4.0.4"
-
 "@modules/photo-editing@file:./modules/photo-editing":
   version "1.0.0"
 
