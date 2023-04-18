@@ -1938,13 +1938,6 @@
     react-native-filter-camera "0.1.18"
     react-native-vector-icons "^9.2.0"
 
-"@modules/live-camera-filters@file:./modules/live-camera-filters/":
-  version "1.0.0"
-  dependencies:
-    "@react-native-community/cameraroll" "^4.1.2"
-    react-native-filter-camera "0.1.18"
-    react-native-vector-icons "^9.2.0"
-
 "@modules/maps@file:./modules/maps":
   version "1.0.0"
 
@@ -1955,6 +1948,9 @@
     react-native-app-intro-slider "^4.0.4"
 
 "@modules/photo-editing@file:./modules/photo-editing":
+  version "1.0.0"
+
+"@modules/photo-editing@file:./modules/photo-editing/":
   version "1.0.0"
 
 "@modules/social-login@file:./modules/social-login":
@@ -1978,7 +1974,7 @@
     "@react-navigation/native" "^5.9.2"
     react-native-elements "^2.3.2"
 
-"@react-native-community/cameraroll@^4.1.2":
+"@react-native-community/cameraroll@4.1.2", "@react-native-community/cameraroll@^4.1.2":
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@react-native-community/cameraroll/-/cameraroll-4.1.2.tgz#489c6bb6137571540d93c543d5fcf8c652b548ec"
   integrity sha512-jkdhMByMKD2CZ/5MPeBieYn8vkCfC4MOTouPpBpps3I8N6HUYJk+1JnDdktVYl2WINnqXpQptDA2YptVyifYAg==
@@ -8762,10 +8758,10 @@ react-native-image-crop-picker@^0.36.2:
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.36.4.tgz#13a659fc296bea695a88a36de9eacd1e4aebc9b8"
   integrity sha512-FOWkYbCEh78V5/aK9HqMSvRnQJtelGwj0UOu1zhE49gO6e4YoKKNBvA15jweAMM/kPA+omDXBIgJaruonoEXGA==
 
-react-native-image-picker@4.7.3:
-  version "4.7.3"
-  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.7.3.tgz#f5863b27bf2e76c83649dd8efea4598426bd04e8"
-  integrity sha512-eRKm4wlsmZHmsWFyv77kYc2F+ZyEVqe0m7mqhsMzWk6TQT4FBDtEDxmRDDFq+ivCu/1QD+EPhmYcAIpeGr7Ekg==
+react-native-image-picker@4.8.3:
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.3.tgz#a74801e8428325133a42dcd818fa54f08e6b20e6"
+  integrity sha512-mA3xKN8TtXpLl3Aoo65ArZvusv3gCsbe3/hsOLKI1DcC+QcYPcDnsYK/ft05rWBj4BdiJ9E2JoveiHNtU8W9GA==
 
 react-native-image-resizer@1.4.5:
   version "1.4.5"
