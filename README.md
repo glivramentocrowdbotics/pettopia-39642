@@ -68,6 +68,7 @@ This section will show any installed modules you add from the Storyboard Modules
 - [camera]()
 - [react-native-social-login](modules/social-login)
 - [react-native-photo-editing](modules/photo-editing)
+- [react-native-maps](modules/maps)
 
 # Getting started: Frontend
 
