@@ -1137,7 +1137,7 @@
     prop-types "^15.8.1"
     react-native-app-intro-slider "^4.0.4"
 
-"@modules/social-login@file:./modules/social-login/":
+"@modules/social-login@file:./modules/social-login":
   version "1.0.0"
   dependencies:
     "@invertase/react-native-apple-authentication" "^2.1.0"
@@ -1153,6 +1153,12 @@
   version "1.0.0"
 
 "@modules/user-profile@file:./modules/user-profile":
+  version "1.0.0"
+  dependencies:
+    "@react-navigation/native" "^5.9.2"
+    react-native-elements "^2.3.2"
+
+"@modules/user-profile@file:./modules/user-profile/":
   version "1.0.0"
   dependencies:
     "@react-navigation/native" "^5.9.2"
