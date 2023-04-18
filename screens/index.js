@@ -5,109 +5,165 @@ import {
   View,
   ScrollView,
   SafeAreaView,
-  Image,
   TextInput,
   Pressable
 } from "react-native";
 
-const AddPaymentMethodScreen = (params) => {
-  const [paymentOption, setPaymentOption] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
+const AddCardDetailsScreen = (params) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [country, setCountry] = useState("");
   const [cardExpiry, setCardExpiry] = useState("");
   const [cvv, setCvv] = useState("");
-  const [name, setName] = useState("");
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
           <View style={styles.paletteContainer}>
-            <View style={styles.unSelected}></View>
-            <View style={styles.unSelected}></View>
-            <View style={styles.selected}></View>
+            <View style={styles.unSelected}>
+              <Text>Linked Cards</Text>
+            </View>
+            <View style={styles.selected}>
+              <Text>Add Card</Text>
+            </View>
           </View>
-          <Image
-            source={require("./assets/3Dots.png")}
-            style={styles.threeDots}
-          />
         </View>
-        <View style={styles.inputs}>
+        <View style={styles.fullInputs}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Payment Options</Text>
+            <Text style={styles.inputText}>First Name</Text>
             <TextInput
               style={styles.input}
-              onChangeText={(text) => setPaymentOption(text)}
-              value={paymentOption}
-              placeholder="Master Card"
+              onChangeText={(text) => setFirstName(text)}
+              value={firstName}
+              placeholder="Enter your first name"
               placeholderTextColor="#9B9B9B"
               autoCapitalize="none"
               autoCorrect={false}
             />
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Card Number</Text>
+            <Text style={styles.inputText}>Last Name</Text>
             <TextInput
               style={styles.input}
-              onChangeText={(text) => setCardNumber(text)}
-              value={cardNumber}
-              placeholder="Enter your Card Number"
+              onChangeText={(text) => setLastName(text)}
+              value={lastName}
+              placeholder="Enter your last name"
               placeholderTextColor="#9B9B9B"
               autoCapitalize="none"
               autoCorrect={false}
             />
-          </View>
-          <View style={styles.halfInputs}>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputText}>Expiration Date</Text>
-              <TextInput
-                style={[styles.input, styles.input1]}
-                onChangeText={(text) => setCardExpiry(text)}
-                value={cardExpiry}
-                placeholder="Enter your last name"
-                placeholderTextColor="#9B9B9B"
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputText}>CVV</Text>
-              <TextInput
-                style={[styles.input, styles.input2]}
-                onChangeText={(text) => setCvv(text)}
-                value={cvv}
-                placeholder="CVV"
-                placeholderTextColor="#9B9B9B"
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
-            </View>
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Card Holder Name</Text>
+            <Text style={styles.inputText}>Address 1</Text>
             <TextInput
               style={styles.input}
-              onChangeText={(text) => setName(text)}
-              value={name}
-              placeholder="Username"
+              onChangeText={(text) => setAddress1(text)}
+              value={address1}
+              placeholder="Enter your Address"
               placeholderTextColor="#9B9B9B"
               autoCapitalize="none"
               autoCorrect={false}
             />
           </View>
-          <View style={styles.checkBoxContainer}>
-            <Text style={styles.inputText}>Save this card details</Text>
-            <Image
-              source={require("./assets/checkbox.png")}
-              style={styles.checkBox}
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Address 2</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setAddress2(text)}
+              value={address2}
+              placeholder="Enter your Address"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+        </View>
+        <View style={styles.halfInputs}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>City</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setCity(text)}
+              value={city}
+              placeholder="Enter your City"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>State</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setState(text)}
+              value={state}
+              placeholder="Enter your State"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+        </View>
+        <View style={styles.halfInputs}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Zip</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setZip(text)}
+              value={zip}
+              placeholder="Enter your Zip Code"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Country</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setCountry(text)}
+              value={country}
+              placeholder="Enter your Country"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+        </View>
+        <View style={styles.halfInputs}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Card Expiration</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setCardExpiry(text)}
+              value={cardExpiry}
+              placeholder="Enter Card Expiration"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>CVV</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setCvv(text)}
+              value={cvv}
+              placeholder="Enter your CVV"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
           </View>
         </View>
         <View style={styles.btnContainer}>
           <Pressable style={styles.btn}>
-            <Text style={styles.btnText}>Continue</Text>
-            <Image
-              source={require("./assets/arrow.png")}
-              style={styles.arrow}
-            />
+            <Text style={styles.btnText}>Update</Text>
           </Pressable>
         </View>
       </ScrollView>
@@ -126,48 +182,37 @@ const styles = StyleSheet.create({
   paletteContainer: {
     flexDirection: "row",
     backgroundColor: "#F1F1F1",
-    height: 45,
-    width: "100%",
+    height: 60,
+    width: 250,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "space-around",
-    paddingHorizontal: 5
+    paddingHorizontal: 15
   },
   selected: {
     backgroundColor: "#fff",
-    height: "80%",
-    flex: 1,
     padding: 10,
     paddingHorizontal: 25,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#e6e6e6",
-    marginHorizontal: 5
+    borderColor: "#e6e6e6"
   },
   unSelected: {
-    height: "80%",
-    flex: 1,
-    marginHorizontal: 5,
-    backgroundColor: "#12D790",
     padding: 10,
-    paddingHorizontal: 25,
-    borderRadius: 10
+    paddingHorizontal: 25
   },
-  threeDots: {
-    alignSelf: "center",
-    marginTop: 20
-  },
-  inputs: {
+  fullInputs: {
     paddingHorizontal: 20,
     justifyContent: "center"
   },
   inputContainer: {
     flexDirection: "column",
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    marginHorizontal: 5
   },
   inputText: {
-    fontSize: 14,
+    fontSize: 16,
     marginLeft: 20
   },
   input: {
@@ -180,32 +225,10 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   halfInputs: {
+    paddingHorizontal: 20,
     justifyContent: "space-between",
-    flexDirection: "row",
-    flex: 1
-  },
-  input1: {
-    borderRightWidth: 0,
-    borderRightColor: "#fff",
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    flex: 0.8
-  },
-  input2: {
-    borderLeftWidth: 0,
-    borderLeftColor: "#fff",
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-    flex: 0.2
-  },
-  checkBoxContainer: {
-    borderWidth: 1,
-    borderColor: "#e6e6e6",
-    padding: 10,
-    marginVertical: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderRadius: 10
+    flexDirection: "row" // borderColor: '#9B9B9B',
+    // borderWidth: 1,
   },
   btnContainer: {
     padding: 30,
@@ -222,12 +245,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     borderRadius: 10,
     justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row"
-  },
-  arrow: {
-    marginLeft: 10,
-    marginTop: 2
+    alignItems: "center"
   },
   btnText: {
     color: "#fff",
@@ -235,4 +253,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-export default AddPaymentMethodScreen;
+export default AddCardDetailsScreen;
