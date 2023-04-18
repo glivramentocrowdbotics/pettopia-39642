@@ -1,186 +1,155 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  SafeAreaView,
-  TextInput,
-  Image,
-  FlatList,
-  Pressable
-} from "react-native";
+import { Text, StyleSheet, View, Image, ScrollView } from "react-native";
 
-const SocialBlockedUsersScreen = params => {
-  const [followers, setFollowers] = useState();
-  const [username, setUsername] = useState("");
-  const [blockedUsers, setBlockedUsers] = useState([]);
+const NotificationsScreen = (params) => {
+  const [notifications, setNotifications] = useState([]);
   useEffect(() => {
-    setFollowers(4513);
-    setBlockedUsers([
+    setNotifications([
       {
         id: 1,
-        name: "John Doe",
-        profileImage: require("./assets/profile.png")
+        type: "Booking Successful",
+        details: "You have booked Kreamy Corner",
+        time: "5 min ago",
+        read: false
       },
       {
         id: 2,
-        name: "Cody Fisher",
-        profileImage: require("./assets/profile.png")
+        type: "Booking Successful",
+        details: "You have booked Kreamy Corner",
+        time: "5 min ago",
+        read: false
       },
       {
         id: 3,
-        name: "Jenny Wilson",
-        profileImage: require("./assets/profile.png")
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 4,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 5,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 6,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 7,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
       }
     ]);
   }, []);
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputText}>Search</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={text => setUsername(text)}
-            value={username}
-            placeholder="Search Username"
-            placeholderTextColor="#9B9B9B"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <Image
-            source={require("./assets/Vector.png")}
-            style={styles.searchIcon}
-          />
+        <View style={styles.headerTextContainer}>
+          <Text style={styles.headerText}>Select all</Text>
+          <Text style={styles.headerText}>Mark all</Text>
         </View>
       </View>
-      <View style={styles.follower_blocked}>
-        <Text style={[styles.grey]}>{followers} Followers</Text>
-        <Text style={[styles.bold, styles.black]}>Blocked Accounts</Text>
+      <View style={styles.notificationsContainer}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {notifications.map((notification, index) => (
+            <NotificationTile notification={notification} key={index} />
+          ))}
+        </ScrollView>
       </View>
-      <View style={styles.frequentBar}>
-        <Text style={[styles.fnt16, styles.bold, styles.grey]}>Frequently</Text>
-      </View>
-      <FlatList
-        data={blockedUsers}
-        keyExtractor={(item, index) => item.id.toString()}
-        renderItem={({ item }) => <User user={item} />}
-      />
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "flex-start"
-  },
-  header: {
-    padding: 20,
-    // flex: 1,
-    height: 100
-  },
-  inputContainer: {
-    flexDirection: "column",
-    flex: 1,
-    justifyContent: "center",
-    marginHorizontal: 5
-  },
-  inputText: {
-    fontSize: 16,
-    marginLeft: 20,
-    color: "#111112"
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#e6e6e6",
-    borderRadius: 10,
-    padding: 10,
-    paddingLeft: 20,
-    marginVertical: 10,
-    width: "100%",
-    height: 50
-  },
-  searchIcon: {
-    position: "absolute",
-    right: 30,
-    top: 35
-  },
-  follower_blocked: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 30
-  },
-  frequentBar: {
-    paddingHorizontal: 40,
-    paddingVertical: 15,
-    backgroundColor: "#e6e6e6",
-    marginVertical: 10
-  },
-  fnt16: {
-    fontSize: 16
-  },
-  bold: {
-    fontWeight: "bold"
-  },
-  grey: {
-    color: "grey"
-  },
-  black: {
-    color: "black"
-  }
-});
-export default SocialBlockedUsersScreen;
-
-const User = ({ user }) => {
-  return (
-    <View style={useStyles.userContainer}>
-      <View style={useStyles.userInfo}>
-        <Image source={user.profileImage} style={useStyles.profileImage} />
-        <Text style={useStyles.username}>{user.name}</Text>
-      </View>
-      <Pressable style={useStyles.btnContainer}>
-        <Text style={useStyles.btntext}>Unblock</Text>
-      </Pressable>
     </View>
   );
 };
 
-const useStyles = StyleSheet.create({
-  userContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+const NotificationTile = ({ notification }) => {
+  const textColor = {
+    color: notification.read ? "#8E8E8E" : "#000"
+  };
+  return (
+    <View style={notificationTileStyles.container}>
+      <View style={notificationTileStyles.notificationTextContainer}>
+        <Text style={[notificationTileStyles.mainText, textColor]}>
+          {notification.type}
+        </Text>
+        <Text style={textColor}>{notification.details}</Text>
+      </View>
+      <View style={notificationTileStyles.timeContainer}>
+        <Text style={textColor}>{notification.time}</Text>
+        <View>
+          {!notification.read
+            ? (
+            <Image source={require("./assets/readIcon.png")} />
+              )
+            : null}
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const notificationTileStyles = StyleSheet.create({
+  container: {
+    borderBottomColor: "#ccc",
     borderBottomWidth: 1,
-    borderBottomColor: "#e6e6e6",
-    marginHorizontal: 20,
-    justifyContent: "space-between"
-  },
-  userInfo: {
-    flex: 2,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start"
+    justifyContent: "space-between",
+    height: 100,
+    alignItems: "center"
   },
-  profileImage: {
-    borderRadius: 50,
-    width: 70,
-    height: 70,
-    resizeMode: "contain"
+  notificationTextContainer: {
+    flexDirection: "column",
+    height: "80%",
+    justifyContent: "space-around" // alignItems: "center"
   },
-  username: {
-    fontSize: 16,
-    marginLeft: 20,
-    color: "#111112"
+  mainText: {
+    fontSize: 18,
+    marginVertical: 10
   },
-  btnContainer: {
-    flex: 1,
-    alignItems: "flex-end"
-  },
-  btntext: {
-    fontSize: 17,
-    color: "#12D790"
+  timeContainer: {
+    height: "80%",
+    justifyContent: "space-around",
+    alignItems: "center"
   }
 });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  },
+  header: {
+    flex: 1,
+    paddingVertical: 10,
+    justifyContent: "space-around",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc"
+  },
+  headerTextContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold"
+  },
+  notificationsContainer: {
+    flex: 12,
+    backgroundColor: "#fff",
+    paddingHorizontal: 20
+  }
+});
+export default NotificationsScreen;
