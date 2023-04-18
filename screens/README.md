@@ -1,224 +1,95 @@
-# Photo Editing
+# Maps
+Maps module is a react-native based module. Helps user to search and navigate to the required locations.
 
+## Android
+### Add Google Maps Key
 
-## Configuration for Android
+Update `android/app/src/main/AndroidManifest.xml` with the following XML meta tags:
 
-### Configuration for react-native-unimodules
+```xml
+    <application>
+        <!-- You will only need to add this meta-data tag, but make sure it's a child of application -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="Your Google maps API Key Here"/>
 
-1. Open up android/app/src/main/java/[...]/MainApplication.java. Add following lines to the imports at the top of the file.
-```
-    import com.demo.generated.BasePackageList;
-    import java.util.Arrays;
-    import org.unimodules.adapters.react.ModuleRegistryAdapter;
-    import org.unimodules.adapters.react.ReactModuleRegistryProvider;
-
-```
-2. Add following lines of code in android/app/src/main/java/[...]/MainApplication.java as well.
-
-```
-    private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
-```
-
-2. Add following lines of code in android/app/src/main/java/[...]/MainApplication.java as well.
-
-Add below lines in getPackages function
-
-```
-    List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
-            new ModuleRegistryAdapter(mModuleRegistryProvider)
-          );
-          packages.addAll(unimodules);
-```
-
-3. Append the following lines to android/settings.gradle.
-
-```
-    apply from: new File(["node", "--print", "require.resolve('react-native-unimodules/package.json')"].execute(null, rootDir).text.trim(), "../gradle.groovy"); includeUnimodulesProjects()
-    apply from: new File(["node", "--print", "require.resolve('@react-native-community/cli-platform-android/package.json')"].execute(null, rootDir).text.trim(), "../native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-
-```
-
-4. Add following lines in android/app/build.gradle.
-
-```
-    apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
-```
-
-5. Add this line in dependencies block in android/app/build.gradle.
-
-```
-    dependencies{
-        addUnimodulesDependencies()
-    }
-```
-
-
-### Configuration for @react-native-community_camerarol
-
-1. Open up android/app/src/main/java/[...]/MainApplication.java. Append the given lines to imports.
-
-```
-    import com.reactnativecommunity.cameraroll.CameraRollPackage;
-
-```
-2. Append the following lines to android/settings.gradle.
-
-```
-    include ':@react-native-community_cameraroll'
-    project(':@react-native-community_cameraroll').projectDir = new File(rootProject.projectDir, 	'../node_modules/@react-native-community/cameraroll/android')
-```
-3. Add android:requestLegacyExternalStorage="true" to AndroidManifest.xml.
-
-```
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-```
-```
-    <application  android:requestLegacyExternalStorage="true" /> 
     </application>
 ```
 
-### Update buildScript in android/build.gradle
-In android/build.gradle update your `buildTools`, `compileSdkVersion` and `targetSdkVersion` to at least version 30.
-```javascript
+## iOS
 
-buildToolsVersion = "30.0.3"
-compileSdkVersion = 30
-targetSdkVersion = 30
+### Build configuration on iOS
 
-```
-
-## Configuration for iOS
-
-### Configuration for react-native-unimodules
-
-1. In ios/MyApp/AppDelegate.h
-```
-- @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate> //remove this line
-
-+ #import <UMCore/UMAppDelegateWrapper.h>                                         //add these two lines
-+ @interface AppDelegate : UMAppDelegateWrapper <UIApplicationDelegate, RCTBridgeDelegate>
+```sh
+cd ios
+pod install
 ```
 
-2. In ios/MyApp/AppDelegate.m add following lines:
+### App Store Submission
 
-```
-#import <UMCore/UMModuleRegistry.h>
-#import <UMReactNativeAdapter/UMNativeModulesProxy.h>
-#import <UMReactNativeAdapter/UMModuleRegistryAdapter.h>
-```
+> The app's Info.plist file must contain a NSLocationWhenInUseUsageDescription with a user-facing purpose string explaining clearly and completely why your app needs the location, otherwise Apple will reject your app submission.
 
-```
-@interface AppDelegate () <RCTBridgeDelegate>
- 
-@property (nonatomic, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
- 
-@end
-```
-```
-  self.moduleRegistryAdapter = [[UMModuleRegistryAdapter alloc] initWithModuleRegistryProvider:[[UMModuleRegistryProvider alloc] init]];
-```
+### Enabling Google Maps on iOS
 
-```
-[super application:application didFinishLaunchingWithOptions:launchOptions];
-```
-
-```
-- (NSArray<id<RCTBridgeModule>> *)extraModulesForBridge:(RCTBridge *)bridge
-{
-    NSArray<id<RCTBridgeModule>> *extraModules = [_moduleRegistryAdapter extraModulesForBridge:bridge];
-    // If you'd like to export some custom RCTBridgeModules that are not Expo modules, add them here!
-    return extraModules;
-}
-```
-
-3. In ios/Podfile 
-```
-//Remove these two lines
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
-
-//Add these lines
-require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
-require File.join(File.dirname(`node --print "require.resolve('@react-native-community/cli-platform-ios/package.json')"`), "native_modules")
-require File.join(File.dirname(`node --print "require.resolve('react-native-unimodules/package.json')"`), "cocoapods")
-```
-```
- platform :ios, '10.0' //remove this line
- platform :ios, '11.0' //add this line
-```
-```
- use_unimodules! //add this line
-```
-4. Install pods
-```
-npx pod-install
-```
-
-### Configuration for @react-native-community_camerarol
-
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `@react-native-community/cameraroll` and add `RNCCameraroll.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNCCameraroll.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project `(Cmd+R)`<
-
+https://github.com/react-native-maps/react-native-maps/blob/master/docs/installation.md#enabling-google-maps-on-ios-react-native-all-versions
 
 ## Manual Setup
 
 1. If you want to use the module directly, or in other modules, you can do so by importing it and using the following properties.
 
 ```javascript
-import PhotoEditing from "@modules/photo-editing";
-const { title, navigator } = PhotoEditing;
+import Maps from "@modules/maps";
+
+const { title, navigator } = Maps;
 ```
 
 2. You can call module directly by importing navigator without going through any routing. And pass the params to the module.
 
 ```javascript
+
 import { modules } from '@modules';
-const PhotoEditing = modules[module_index].value.navigator;  //module_index : position of the module in modules folder
-<PhotoEditing  />
+
+const Maps = modules[module_index].value.navigator;  //module_index : position of the module in modules folder
+
+<Maps origin={obj} originTitle = {''} apiKey={GOOGLE_MAPS_APIKEY} onNavigationStart={func} .../>
+
 ```
 
+## Params
 
-## Features
+Below is the list of all params that can be passed to the module.
 
-This module contains the following list of features.
-* Crop
-* Filters
-* Edits
-* Shadows
+| Name              | Type       | Description                                                    |
+| ---------------   |:----------:|:---------------------------------------------------------------|
+| origin `required` | `object`   | The origin location `{latitude: , longitude: }`to start routing from.|
+| originTitle       | `string`   | Title of the origin             |
+| originDescription | `string`   | Description of the provided origin.                 |
+| apiKey `required` | `string`   | Your Google Maps API Key. Make sure you've enabled the Google Maps Directions API for that key using the Google API Console. |
+| enableDirections  | `boolean`  |Set `enableDirections=true` if you want to choose destination and start navigation between origin and destination.|
+| onNavigationStart | `function` | Called in case the navigation has started between origin to destination|
+| onNavigationError | `function` | Called in case the navigation has failed.           |
+| onLatLngChange | `function` | Called in case the marker has moved to new location.           |
+| getDistance (km)  | `function` | Returns the distance(as function param) between origin and destination.  |
+| getDuration (minutes)| `function` | Returns estimated time(as function param), needed to get from origin to destination|
+| markerColor       | `string`   | Custom color for the marker.                     |
+| markerImage       | `string`   | URL of the image to be displayed as marker.                     |
+| markerImageStyle  | `object`   | Set style for the marker image. e.g (`height`, `width`, `resizeMode`) etc. |
+| getDestinationAddress| `function` | Returns  `{latitude: 37.78825, longitude: -122.4324}` of the destination.       |
+| strokeColor       | `string`   | Color for the line connecting origin and destination.          |
+| strokeWidth       | `number`   | Width of the line connecting origin and destination.                        |
+| showSearchInput   | `boolean`  | Set `showSearchInput={true}` to show search bar on map to search location. It's default value is `false`. |
+| mainContainerStyle| `object`   | Set style for the maps main container.  |
+| markedLocations   | `array` | Array of objects. Each object should have latitude, longitude, title and description for the location to be marked on the map. e.g `{latitude: 37.78825, longitude: -122.4324, title: '', description: ''}`|
+| onDragStart         | `function` | Callback that is called when the user initiates a drag on this marker.|
+| onDrag         | `function` | Callback called continuously as the marker is dragged.|
+| onDragEnd         | `function` | Callback that is called when a drag on this marker finishes. Returns locations longitude and latitude as function param.|
 
-### Crop
-Image can be cropped by given Aspect ratios.
-1. 1.1
-2. 2.3
-3. 3.2
-4. 3.4
-5. 4.3
-6. 4.5
 
-### Filters
-List of filters that can be applied to the photo.
-1. Warm
-2. Classic
-3. Vintage
-4. Sharp
-5. Negative
-6. Bright
-7. Cool
+## Contributing
 
-### Edits
-List of effects to edit the image.
-1. Contrast
-2. Saturation.
-3. Brightness
-4. Temperature
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Please make sure to update tests as appropriate.
 
-### Shadows
-Add Shadows to the image by adjusting 
-1. Blur
-2. Blur Passes
-3. List of Maps
+## License
 
+[MIT](https://choosealicense.com/licenses/mit/)
