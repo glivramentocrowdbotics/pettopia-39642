@@ -1,9 +1,13 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 import { Text, StyleSheet, View } from "react-native";
 
-const PhotoLibraryScreen = params => {
+const PhotoLibraryScreen = () => {
+  const navigation = useNavigation();
   return <View style={styles.container}>
-      <Text style={styles.headingTxt}>Photo Library Screen</Text>
+      <Pressable onPress={() => {
+      navigation.navigate("Photo editing");
+    }}><Text style={styles.headingTxt}>Photo Library Screen</Text></Pressable>
     </View>;
 };
 

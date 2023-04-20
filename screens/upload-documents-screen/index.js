@@ -1,20 +1,24 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 import { Text, StyleSheet, View, SafeAreaView, Image, TouchableHighlight } from "react-native";
 
-const UploadDocuments = params => {
+const UploadDocuments = () => {
+  const navigation = useNavigation();
   return <SafeAreaView style={styles.container}>
-      <View style={styles.headerContainer}>
+      <Pressable onPress={() => {
+      navigation.navigate("photoLibrary");
+    }}><View style={styles.headerContainer}>
        <View style={styles.header}>
         <Image source={require( // @ts-ignore
-        "./assets/back.png")} style={styles.back} />
+          "./assets/back.png")} style={styles.back} />
         <Text style={styles.heading}>Upload documents</Text>
         <Text />
       </View>
       <View style={styles.uploadContainer}>
         <Image source={require( // @ts-ignore
-        "./assets/light-upload.png")} style={styles.uploadImg} />
+          "./assets/light-upload.png")} style={styles.uploadImg} />
         </View>
-      </View>
+      </View></Pressable>
       <Text style={styles.subHeading}>Upload documents</Text>
       <Text style={styles.mr10}>Document front</Text>
       <View style={styles.chooseContainer}>
