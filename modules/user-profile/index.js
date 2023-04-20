@@ -30,9 +30,11 @@ export const UserProfile = ({
     }
   }, [userId]);
   return <ScrollView style={styles.container} contentStyle={styles.content}>
-      {api.loading === "pending" ? <View>
+      {api.loading === "pending" ? <Pressable onPress={() => {
+      navigation.navigate("notificationsPreference");
+    }}><View>
           <ActivityIndicator color={Color.steel} />
-        </View> : <View>
+        </View></Pressable> : <View>
           <View>{!user && <Pressable onPress={() => {
           navigation.navigate("profileSetupSuccess");
         }}><Text>No user to display information.</Text></Pressable>}</View>

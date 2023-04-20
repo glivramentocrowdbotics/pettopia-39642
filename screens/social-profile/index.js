@@ -1,7 +1,10 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 import { Text, StyleSheet, View, Image, ScrollView, TouchableHighlight } from "react-native";
 
 const SocialProfile = () => {
+  const navigation = useNavigation();
+
   const pressed = () => {
     console.log("pressed");
   };
@@ -62,9 +65,11 @@ const SocialProfile = () => {
                 <Post backgroundColor="#FCF1D6" />
               </View>
             </View>
-            <View style={styles.largePost}>
+            <Pressable onPress={() => {
+            navigation.navigate("notifications");
+          }}><View style={styles.largePost}>
               <Post backgroundColor="#C4C4C4" />
-            </View>
+            </View></Pressable>
           </View>
         </View>
       </View>
@@ -76,14 +81,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     backgroundColor: "#fff"
-  },
-  headingTxt: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginVertical: 12,
-    padding: 10,
-    height: "100%",
-    backgroundColor: "white"
   },
   head: {
     paddingHorizontal: 20
@@ -181,15 +178,6 @@ const styles = StyleSheet.create({
     height: 240,
     width: "67%",
     padding: 3
-  },
-  bgcGray: {
-    backgroundColor: "#D9DADD"
-  },
-  bgcDarkGray: {
-    backgroundColor: "#C4C4C4"
-  },
-  bgcYellow: {
-    backgroundColor: "#FCF1D6"
   },
   XRewkYQD: {
     backgroundColor: props.backgroundColor
