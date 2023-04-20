@@ -1,42 +1,42 @@
 import React, { useState } from "react";
-import {
-  SectionList,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  Text
-} from "react-native";
+import { SectionList, TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import SearchBar from "../Components/SearchBar";
-import { ChannelType, useStore } from "../Store";
-// @ts-ignore
+import { ChannelType, useStore } from "../Store"; // @ts-ignore
+
 import { usePubNub } from "pubnub-react";
 import Circle from "../Components/Circle";
 import Loader from "../Components/loader";
 import { createDirectChannel } from "../utils";
 
-const CreateDirectChannel = ({ navigation }) => {
+const CreateDirectChannel = ({
+  navigation
+}) => {
   const pubnub = usePubNub();
-  const { state, dispatch } = useStore();
+  const {
+    state,
+    dispatch
+  } = useStore();
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const data = search
-    ? state.contacts.filter((item) => item.name.includes(search))
-    : state.contacts;
+  const data = search ? state.contacts.filter(item => item.name.includes(search)) : state.contacts;
 
-  const createChat = async (item) => {
-    const res = await createDirectChannel(
-      pubnub,
-      state.user._id,
-      item._id,
-      { name: state.user.name + " - " + item.name, custom: { type: 0, owner: state.user._id } }
-    );
+  const createChat = async item => {
+    const res = await createDirectChannel(pubnub, state.user._id, item._id, {
+      name: state.user.name + " - " + item.name,
+      custom: {
+        type: 0,
+        owner: state.user._id
+      }
+    });
     dispatch({
-      channels: {
-        ...state.channels,
+      channels: { ...state.channels,
         [res.channel]: {
           id: res.channel,
           name: state.user.name + " - " + item.name,
-          custom: { type: ChannelType.Direct, owner: state.user._id }
+          custom: {
+            type: ChannelType.Direct,
+            owner: state.user._id
+          }
         }
       }
     });
@@ -45,54 +45,50 @@ const CreateDirectChannel = ({ navigation }) => {
       item: {
         id: res.channel,
         name: state.user.name + " - " + item.name,
-        custom: { type: ChannelType.Direct, owner: state.user._id }
+        custom: {
+          type: ChannelType.Direct,
+          owner: state.user._id
+        }
       }
     });
   };
 
-  const ListItem = (item) => {
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          setLoading(true);
-          createChat(item);
-        }}
-      >
+  const ListItem = item => {
+    return <TouchableOpacity onPress={() => {
+      setLoading(true);
+      createChat(item);
+    }}>
         <View key={item.id} style={styles.ListItem}>
           <View style={styles.ProfileContainer}>
             <View style={styles.ProfileBox}>
-              <Circle
-                letter={(item.name ? item.name[0] : "").toUpperCase()}
-                source={""}
-              />
+              <Circle letter={(item.name ? item.name[0] : "").toUpperCase()} source={""} />
             </View>
             <View style={styles.Profile}>
               <Text style={[styles.ProfileText, styles.Mt8]}>{item.name}</Text>
             </View>
           </View>
         </View>
-      </TouchableOpacity>
-    );
+      </TouchableOpacity>;
   };
 
-  return (
-    <>
+  return <>
       {loading && <Loader />}
       <View style={styles.Container}>
         <SearchBar value={search} onChange={setSearch} />
-        <SectionList
-          sections={[{ title: "Contacts", data: data }]}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => ListItem(item)}
-          renderSectionHeader={({ section: { title } }) => (
-            <View style={styles.TitleContainer}>
+        <SectionList sections={[{
+        title: "Contacts",
+        data: data
+      }]} keyExtractor={(item, index) => item + index} renderItem={({
+        item
+      }) => ListItem(item)} renderSectionHeader={({
+        section: {
+          title
+        }
+      }) => <View style={styles.TitleContainer}>
               <Text style={styles.GroupHeading}>{title}</Text>
-            </View>
-          )}
-        />
+            </View>} />
       </View>
-    </>
-  );
+    </>;
 };
 
 const styles = StyleSheet.create({
@@ -144,5 +140,4 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   }
 });
-
 export default CreateDirectChannel;

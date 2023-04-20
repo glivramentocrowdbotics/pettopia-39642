@@ -9,8 +9,14 @@ import Loader from "../Components/loader";
 import { upload } from "../Api";
 import { setChannelMetadata } from "../utils";
 
-const EditChannelDetails = ({ navigation, route }) => {
-  const { state, dispatch } = useStore();
+const EditChannelDetails = ({
+  navigation,
+  route
+}) => {
+  const {
+    state,
+    dispatch
+  } = useStore();
   const pubnub = usePubNub();
   const [name, setName] = useState(route.params.item.name);
   const [image, setImage] = useState(null);
@@ -19,19 +25,26 @@ const EditChannelDetails = ({ navigation, route }) => {
 
   const submit = async () => {
     setLoading(true);
-    await setChannelMetadata(pubnub, route.params.item.id, { name });
+    await setChannelMetadata(pubnub, route.params.item.id, {
+      name
+    });
     const channel = state.channels[route.params.item.id];
+
     if (image) {
       try {
         const file = await upload(image);
-        await setChannelMetadata(pubnub, route.params.item.id, { custom: { ...channel.custom, caption: file.url } });
+        await setChannelMetadata(pubnub, route.params.item.id, {
+          custom: { ...channel.custom,
+            caption: file.url
+          }
+        });
         dispatch({
-          channels: {
-            ...state.channels,
-            [route.params.item.id]: {
-              ...channel,
+          channels: { ...state.channels,
+            [route.params.item.id]: { ...channel,
               name,
-              custom: { ...channel.custom, caption: file.url }
+              custom: { ...channel.custom,
+                caption: file.url
+              }
             }
           }
         });
@@ -43,10 +56,8 @@ const EditChannelDetails = ({ navigation, route }) => {
       }
     } else {
       dispatch({
-        channels: {
-          ...state.channels,
-          [route.params.item.id]: {
-            ...channel,
+        channels: { ...state.channels,
+          [route.params.item.id]: { ...channel,
             name
           }
         }
@@ -60,36 +71,28 @@ const EditChannelDetails = ({ navigation, route }) => {
       mediaType: "photo",
       includeBase64: true
     });
+
     if (!result) {
       return console.log("picking result cancelled");
     }
+
     setImage(result.data);
     setLocalImage(result.path);
   };
 
-  return (
-    <Fragment>
+  return <Fragment>
       {loading && <Loader />}
       <View style={styles.Container}>
-        <CirclePrompt
-          onPress={pickImage}
-          source={localImage || route.params.item.custom.caption}
-        />
+        <CirclePrompt onPress={pickImage} source={localImage || route.params.item.custom.caption} />
         <View style={[options.section, styles.Mt20]}>
           <Text style={styles.ChannelName}>Channel name</Text>
-          <TextInput
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-            style={[options.ListViewStyle.subtitle, styles.TextInput]}
-          />
+          <TextInput placeholder="Name" value={name} onChangeText={setName} style={[options.ListViewStyle.subtitle, styles.TextInput]} />
         </View>
         <View style={styles.Mt20}>
           <Button title="Update" onPress={submit} />
         </View>
       </View>
-    </Fragment>
-  );
+    </Fragment>;
 };
 
 const styles = StyleSheet.create({

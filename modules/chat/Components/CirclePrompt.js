@@ -2,18 +2,22 @@ import React, { Fragment } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
-const CirclePrompt = ({ onPress, source }) => {
-  return (
-    <Fragment>
+const CirclePrompt = ({
+  onPress,
+  source
+}) => {
+  return <Fragment>
       <TouchableOpacity onPress={onPress}>
-        {source
-          ? <Image source={{ uri: source }} style={styles.shape} />
-          : <LinearGradient colors={["#a5bef5", "#91a2c7"]} start={{ x: 0.1, y: 0.2 }} style={styles.shape}>
+        {source ? <Image source={{
+        uri: source
+      }} style={styles.shape} /> : <LinearGradient colors={["#a5bef5", "#91a2c7"]} start={{
+        x: 0.1,
+        y: 0.2
+      }} style={styles.shape}>
         </LinearGradient>}
         <Text style={styles.text}>Set New Photo</Text>
       </TouchableOpacity>
-    </Fragment>
-  );
+    </Fragment>;
 };
 
 const styles = StyleSheet.create({

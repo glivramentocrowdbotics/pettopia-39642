@@ -1,24 +1,24 @@
 import React, { useEffect, useContext } from "react";
-import {
-  SafeAreaView
-} from "react-native";
+import { SafeAreaView } from "react-native";
 import RemotePushController from "./utils";
 import { OptionsContext } from "@options";
 import Notifications from "./flatlist";
 
-const PushNotifications = ({ navigation }) => {
+const PushNotifications = ({
+  navigation
+}) => {
   const options = useContext(OptionsContext);
-  const { senderID, authToken, styles } = options;
-
+  const {
+    senderID,
+    authToken,
+    styles
+  } = options;
   useEffect(() => {
     RemotePushController(senderID, authToken);
   }, []);
-
-  return (
-    <SafeAreaView style={styles.container}>
+  return <SafeAreaView style={styles.container}>
       <Notifications />
-    </SafeAreaView>
-  );
+    </SafeAreaView>;
 };
 
 export default {

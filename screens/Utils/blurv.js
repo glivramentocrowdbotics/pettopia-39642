@@ -1,7 +1,6 @@
 // @flow
 import React from "react";
 import { connectSize, Shaders, Node, GLSL } from "gl-react";
-
 const shaders = Shaders.create({
   blurV1D: {
     frag: GLSL`precision highp float;
@@ -24,44 +23,46 @@ const shaders = Shaders.create({
   }`
   }
 });
-
 const NORM = Math.sqrt(2) / 2;
 export const directionForPass = (p, factor, total) => {
-  const f = (factor * 2 * Math.ceil(p / 2)) / total;
-  switch (
-    (p - 1) %
-    4 // alternate horizontal, vertical and 2 diagonals
+  const f = factor * 2 * Math.ceil(p / 2) / total;
+
+  switch ((p - 1) % 4 // alternate horizontal, vertical and 2 diagonals
   ) {
     case 0:
       return [f, 0];
+
     case 1:
       return [0, f];
+
     case 2:
       return [f * NORM, f * NORM];
+
     default:
       return [f * NORM, -f * NORM];
   }
 };
-
-export const BlurV1D = connectSize(
-  ({ children: t, direction, map, width, height }) => (
-    <Node
-      shader={shaders.blurV1D}
-      uniforms={{ t, map, resolution: [width, height], direction }}
-    />
-  )
-);
-
-export const BlurV = connectSize(({ children, factor, map, passes }) => {
-  const rec = (pass) =>
-    pass <= 0
-      ? (
-          children
-        )
-      : (
-      <BlurV1D map={map} direction={directionForPass(pass, factor, passes)}>
+export const BlurV1D = connectSize(({
+  children: t,
+  direction,
+  map,
+  width,
+  height
+}) => <Node shader={shaders.blurV1D} uniforms={{
+  t,
+  map,
+  resolution: [width, height],
+  direction
+}} />);
+export const BlurV = connectSize(({
+  children,
+  factor,
+  map,
+  passes
+}) => {
+  const rec = pass => pass <= 0 ? children : <BlurV1D map={map} direction={directionForPass(pass, factor, passes)}>
         {rec(pass - 1)}
-      </BlurV1D>
-        );
+      </BlurV1D>;
+
   return rec(passes);
 });

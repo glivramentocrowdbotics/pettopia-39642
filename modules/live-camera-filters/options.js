@@ -20,47 +20,36 @@ export const styles = StyleSheet.create({
     backgroundColor: "transparent"
   }
 });
-
-export const FILTERS = [
-  {
-    id: 1,
-    settings: 2,
-    name: "Negative"
-  },
-  {
-    id: 2,
-    settings: 4,
-    name: "Sharp"
-  },
-  {
-    id: 3,
-    settings: 6,
-    name: "Vintage"
-  },
-  {
-    id: 4,
-    settings: 8,
-    name: "Flare"
-  },
-  {
-    id: 5,
-    settings: 10,
-    name: "Iris"
-  },
-  {
-    id: 6,
-    settings: 12,
-    name: "Amaro"
-  },
-  {
-    id: 7,
-    settings: 14,
-    name: "Lomo"
-
-  },
-  {
-    id: 8,
-    settings: 16,
-    name: "Sepia"
-  }
-];
+export const FILTERS = [{
+  id: 1,
+  settings: 2,
+  name: "Negative"
+}, {
+  id: 2,
+  settings: 4,
+  name: "Sharp"
+}, {
+  id: 3,
+  settings: 6,
+  name: "Vintage"
+}, {
+  id: 4,
+  settings: 8,
+  name: "Flare"
+}, {
+  id: 5,
+  settings: 10,
+  name: "Iris"
+}, {
+  id: 6,
+  settings: 12,
+  name: "Amaro"
+}, {
+  id: 7,
+  settings: 14,
+  name: "Lomo"
+}, {
+  id: 8,
+  settings: 16,
+  name: "Sepia"
+}];

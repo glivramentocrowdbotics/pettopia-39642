@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
-
 const authToken = "Your Authentication token";
 const senderID = "FCM Sender ID";
-
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1
+  },
   walletCard: {
     backgroundColor: "#fff",
     padding: 10,
@@ -49,24 +49,34 @@ const styles = StyleSheet.create({
     backgroundColor: "#dadada",
     borderRadius: 10
   },
-  image: { height: 70, width: 70, borderRadius: 10 },
-  listStyle: { marginHorizontal: 15, marginTop: 15, paddingBottom: 10, fontWeight: "bold" },
+  image: {
+    height: 70,
+    width: 70,
+    borderRadius: 10
+  },
+  listStyle: {
+    marginHorizontal: 15,
+    marginTop: 15,
+    paddingBottom: 10,
+    fontWeight: "bold"
+  },
   view: {
     fontSize: 12,
     color: "#6e7075",
     paddingHorizontal: 10,
     marginBottom: 10
   },
-  leftSection: { justifyContent: "flex-start", alignItems: "flex-start" },
+  leftSection: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start"
+  },
   reject: {
     fontSize: 12,
     color: "#6e7075",
     backgroundColor: "#fff",
     paddingHorizontal: 10
   }
-
 });
-
 export default {
   authToken: authToken,
   senderID: senderID,

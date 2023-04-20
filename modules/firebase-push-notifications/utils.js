@@ -8,7 +8,6 @@ const RemotePushController = (senderID, authToken) => {
   PushNotification.configure({
     onRegister: async function (token) {
       const androidId = await getAndroidId();
-
       await registerDeviceInfoAPI({
         registration_id: token.token,
         type: Platform.OS,
@@ -16,29 +15,23 @@ const RemotePushController = (senderID, authToken) => {
         device_id: androidId
       }, authToken);
     },
-
     onNotification: function (notification) {
       console.log("NOTIFICATION:", notification);
       notification.finish(PushNotificationIOS.FetchResult.NoData);
     },
-
     onAction: function (notification) {
       console.log("ACTION:", notification.action);
       console.log("NOTIFICATION:", notification);
     },
-
     onRegistrationError: function (err) {
       console.error(err.message, err);
     },
-
     permissions: {
       alert: true,
       badge: true,
       sound: true
     },
-
     popInitialNotification: true,
-
     requestPermissions: true,
     senderID: senderID
   });

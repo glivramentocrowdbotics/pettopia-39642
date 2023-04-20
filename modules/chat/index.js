@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "react-native-gesture-handler";
-import Pubnub from "pubnub";
-// @ts-ignore
+import Pubnub from "pubnub"; // @ts-ignore
+
 import { PubNubProvider } from "pubnub-react";
 import Navigator from "./Navigator";
 import { useStore, uuid } from "./Store";
@@ -9,9 +9,7 @@ import { listener } from "./utils";
 import options from "./options";
 import { LogBox } from "react-native";
 import { MenuProvider } from "react-native-popup-menu";
-
 LogBox.ignoreLogs(["Setting a timer"]);
-
 const client = new Pubnub({
   subscribeKey: options.PUBNUB_SUB,
   publishKey: options.PUBNUB_PUB,
@@ -20,9 +18,12 @@ const client = new Pubnub({
 });
 
 const App = () => {
-  const { state, dispatch } = useStore();
+  const {
+    state,
+    dispatch
+  } = useStore();
   useEffect(() => {
-    const userIds = options.users.map((user) => {
+    const userIds = options.users.map(user => {
       return user._id;
     });
     client.addListener(listener(state, dispatch));
@@ -31,15 +32,13 @@ const App = () => {
       withPresence: true
     });
   }, []);
-
-  return (
-    <PubNubProvider client={client}>
+  return <PubNubProvider client={client}>
       <MenuProvider>
         <Navigator />
       </MenuProvider>
-    </PubNubProvider>
-  );
+    </PubNubProvider>;
 };
+
 export default {
   title: "Chat",
   navigator: App

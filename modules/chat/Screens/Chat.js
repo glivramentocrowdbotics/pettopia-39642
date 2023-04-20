@@ -1,52 +1,50 @@
 import React, { useLayoutEffect, useEffect, useState } from "react";
-import { user, useStore } from "../Store";
-// @ts-ignore
-import { GiftedChat, InputToolbar } from "react-native-gifted-chat";
-// @ts-ignore
+import { user, useStore } from "../Store"; // @ts-ignore
+
+import { GiftedChat, InputToolbar } from "react-native-gifted-chat"; // @ts-ignore
+
 import { usePubNub } from "pubnub-react";
-import { cloneArray, getUrl, loadHistory, sendMessage, sortArray } from "../utils";
-// @ts-ignore
+import { cloneArray, getUrl, loadHistory, sendMessage, sortArray } from "../utils"; // @ts-ignore
+
 import { launchImageLibrary } from "react-native-image-picker";
 import { StyleSheet, Image, View, Text } from "react-native";
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger
-} from "react-native-popup-menu";
+import { Menu, MenuOptions, MenuOption, MenuTrigger } from "react-native-popup-menu";
+import Video from "react-native-video"; // @ts-ignore
 
-import Video from "react-native-video";
-// @ts-ignore
 import EmojiSelector from "react-native-emoji-selector";
 
-const Chat = ({ route, navigation }) => {
+const Chat = ({
+  route,
+  navigation
+}) => {
   const pubnub = usePubNub();
-  const { state, dispatch } = useStore();
-  const { item } = route.params;
+  const {
+    state,
+    dispatch
+  } = useStore();
+  const {
+    item
+  } = route.params;
   const [messages, setMessages] = useState(state.messages[item.id] || []);
   const channel = state.channels[route.params.item.id];
   const [actionSheet, setActionSheet] = useState(false);
   const [textInput, setTextInput] = useState(null);
-
   useEffect(() => {
-    pubnub.fetchMessages(
-      {
-        channels: [item.id]
-      },
-      (_, response) => {
-        if (response) {
-          const messages = response.channels[item.id].map((obj) => obj.message);
-          state.messages[item.id] = loadHistory(messages);
-          dispatch({ messages: state.messages });
-        }
+    pubnub.fetchMessages({
+      channels: [item.id]
+    }, (_, response) => {
+      if (response) {
+        const messages = response.channels[item.id].map(obj => obj.message);
+        state.messages[item.id] = loadHistory(messages);
+        dispatch({
+          messages: state.messages
+        });
       }
-    );
+    });
   }, [item.id]);
-
   useEffect(() => {
     setMessages(state.messages[item.id] || []);
   }, [state.messages[item.id]]);
-
   useEffect(() => {
     pubnub.setState({
       state: {
@@ -55,7 +53,6 @@ const Chat = ({ route, navigation }) => {
       channels: [item.id]
     });
   });
-
   useLayoutEffect(() => {
     navigation.setOptions({
       title: channel?.name
@@ -63,7 +60,9 @@ const Chat = ({ route, navigation }) => {
   }, [navigation, channel]);
 
   const pickImage = () => {
-    launchImageLibrary({ mediaType: "photo" }).then((res) => {
+    launchImageLibrary({
+      mediaType: "photo"
+    }).then(res => {
       if (res?.didCancel) {
         return;
       }
@@ -72,8 +71,13 @@ const Chat = ({ route, navigation }) => {
         alert("File size must be less then 5mb.");
         return;
       }
+
       const tmpMessages = cloneArray(messages);
-      tmpMessages.push({ image: res.assets[0].uri, pending: true, user: user });
+      tmpMessages.push({
+        image: res.assets[0].uri,
+        pending: true,
+        user: user
+      });
       setMessages(tmpMessages);
       pubnub.sendFile({
         channel: item.id,
@@ -92,7 +96,9 @@ const Chat = ({ route, navigation }) => {
   };
 
   const pickVideo = () => {
-    launchImageLibrary({ mediaType: "video" }).then((res) => {
+    launchImageLibrary({
+      mediaType: "video"
+    }).then(res => {
       if (res?.didCancel) {
         return;
       }
@@ -102,29 +108,30 @@ const Chat = ({ route, navigation }) => {
         return;
       }
 
-      getUrl(res.assets[0].uri, res.assets[0].fileName).then((uri) => {
+      getUrl(res.assets[0].uri, res.assets[0].fileName).then(uri => {
         const tmpMessages = cloneArray(messages);
-        tmpMessages.push({ video: uri, pending: true, user: user });
+        tmpMessages.push({
+          video: uri,
+          pending: true,
+          user: user
+        });
         setMessages(tmpMessages);
-        pubnub.sendFile(
-          {
-            channel: item.id,
-            message: {
-              createdAt: new Date(),
-              user: user,
-              type: "video"
-            },
-            file: {
-              uri: res.assets[0].uri,
-              name: res.assets[0].fileName,
-              mimeType: res.assets[0].type
-            }
+        pubnub.sendFile({
+          channel: item.id,
+          message: {
+            createdAt: new Date(),
+            user: user,
+            type: "video"
           },
-          (status, response) => {
-            console.log(status);
-            console.log(response);
+          file: {
+            uri: res.assets[0].uri,
+            name: res.assets[0].fileName,
+            mimeType: res.assets[0].type
           }
-        );
+        }, (status, response) => {
+          console.log(status);
+          console.log(response);
+        });
       });
     });
   };
@@ -134,9 +141,10 @@ const Chat = ({ route, navigation }) => {
   };
 
   const actions = () => {
-    return (
-      <Menu>
-        <MenuTrigger customStyles={{ triggerWrapper: styles.triggerWrapper }}>
+    return <Menu>
+        <MenuTrigger customStyles={{
+        triggerWrapper: styles.triggerWrapper
+      }}>
           <Text style={styles.PlusContainer}>+</Text>
         </MenuTrigger>
         <MenuOptions optionsContainerStyle={styles.OptionContainer}>
@@ -146,100 +154,80 @@ const Chat = ({ route, navigation }) => {
           <View style={styles.border} />
           <MenuOption onSelect={() => pickVideo()} text="Video" />
         </MenuOptions>
-      </Menu>
-    );
+      </Menu>;
   };
 
-  const onSend = (message) => {
+  const onSend = message => {
     setActionSheet(false);
     const tmpMessages = cloneArray(messages);
-    tmpMessages.push({ text: message[0].text, pending: true, user: user });
+    tmpMessages.push({
+      text: message[0].text,
+      pending: true,
+      user: user
+    });
     setMessages(tmpMessages);
     setTextInput(null);
     sendMessage(pubnub, item.id, message[0]).then(res => console.log(res));
   };
 
-  const renderMessageVideo = (props) => {
-    const { currentMessage } = props;
+  const renderMessageVideo = props => {
+    const {
+      currentMessage
+    } = props;
     let result = "";
+
     try {
       result = pubnub.getFileUrl({
         channel: item.id,
         id: currentMessage._id,
-        name:
-          "name" in currentMessage ? currentMessage.name : currentMessage.video
+        name: "name" in currentMessage ? currentMessage.name : currentMessage.video
       });
     } catch (error) {
       result = currentMessage.video;
     }
 
-    return (
-      <View style={styles.P5}>
-        <Video
-          resizeMode="contain"
-          source={{ uri: result }}
-          style={styles.VideoContainer}
-        />
-      </View>
-    );
+    return <View style={styles.P5}>
+        <Video resizeMode="contain" source={{
+        uri: result
+      }} style={styles.VideoContainer} />
+      </View>;
   };
 
-  const renderMessageImage = (props) => {
-    const { currentMessage } = props;
+  const renderMessageImage = props => {
+    const {
+      currentMessage
+    } = props;
     let result = "";
+
     try {
       result = pubnub.getFileUrl({
         channel: item.id,
         id: currentMessage._id,
-        name:
-          "name" in currentMessage ? currentMessage.name : currentMessage.image
+        name: "name" in currentMessage ? currentMessage.name : currentMessage.image
       });
     } catch (error) {
       result = currentMessage.image;
     }
-    return (
-      <View style={styles.P5}>
-        <Image
-          style={styles.ImageContainer}
-          resizeMode="cover"
-          source={{
-            uri: result
-          }}
-        />
-      </View>
-    );
+
+    return <View style={styles.P5}>
+        <Image style={styles.ImageContainer} resizeMode="cover" source={{
+        uri: result
+      }} />
+      </View>;
   };
 
-  const onEmojiSelected = (emoji) => {
+  const onEmojiSelected = emoji => {
     setTextInput(emoji);
   };
 
-  return (
-    <>
-      <GiftedChat
-        text={textInput}
-        onInputTextChanged={(text) => setTextInput(text)}
-        listViewProps={styles.Container}
-        isLoadingEarlier={true}
-        renderMessageImage={renderMessageImage}
-        renderMessageVideo={renderMessageVideo}
-        messages={sortArray(messages)}
-        renderUsernameOnMessage={true}
-        onSend={onSend}
-        renderInputToolbar={(props) => {
-          return (
-            <InputToolbar {...props} textInputStyle={styles.inputToolbar} />
-          );
-        }}
-        renderActions={() => actions()}
-        user={user}
-      />
-      {actionSheet && (
-        <EmojiSelector onEmojiSelected={(emoji) => onEmojiSelected(emoji)} />
-      )}
-    </>
-  );
+  return <>
+      <GiftedChat text={textInput} onInputTextChanged={text => setTextInput(text)} listViewProps={styles.Container} isLoadingEarlier={true} renderMessageImage={renderMessageImage} renderMessageVideo={renderMessageVideo} messages={sortArray(messages)} renderUsernameOnMessage={true} onSend={onSend} renderInputToolbar={props => {
+      return <InputToolbar {...props} textInputStyle={styles.inputToolbar} />;
+    }} renderActions={() => actions()} user={user} />
+      {actionSheet && <EmojiSelector onEmojiSelected={emoji => onEmojiSelected(emoji)} />}
+    </>;
 };
+
 const styles = StyleSheet.create({
   Container: {
     backgroundColor: "white"

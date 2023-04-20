@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { Text, View, FlatList } from "react-native";
 import { OptionsContext } from "@options";
@@ -7,23 +8,32 @@ import { fetchPaymentHistory } from "./api";
 
 const Payments = () => {
   const options = useContext(OptionsContext);
-  const { styles, localOptions } = options;
+  const {
+    styles,
+    localOptions
+  } = options;
   const [payments, setPayments] = useState([]);
   const [refresh, setRefresh] = useState(true);
+
   const getPayments = async () => {
     setRefresh(true);
     const res = await fetchPaymentHistory();
     setPayments(res);
     setRefresh(false);
   };
-  const { stripePublishKey, merchantIdentifier } = localOptions;
+
+  const {
+    stripePublishKey,
+    merchantIdentifier
+  } = localOptions;
   useEffect(async () => {
     await getPayments();
-  }, []);
-  // More info on all the options is below in the API Reference... just some common use cases shown here
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.listItemContainer}>
+  }, []); // More info on all the options is below in the API Reference... just some common use cases shown here
+
+  const renderItem = ({
+    item
+  }) => {
+    return <View style={styles.listItemContainer}>
         <Text>
           {item.amount} cents {item.currency}
         </Text>
@@ -36,37 +46,31 @@ const Payments = () => {
         <Text>
           <Text style={styles.bold}>Status:</Text> {item.status}
         </Text>
-      </View>
-    );
+      </View>;
   };
 
-  return (
-    <View>
-      <StripeProvider
-        publishableKey={stripePublishKey}
-        merchantIdentifier={merchantIdentifier}
-      >
+  return <View>
+      <StripeProvider publishableKey={stripePublishKey} merchantIdentifier={merchantIdentifier}>
         <CheckoutScreen />
       </StripeProvider>
       <View>
-        <Text
-          style={{ marginHorizontal: 15, marginTop: 15, paddingBottom: 10 }}
-        >
+        <Text style={_styles.wmqnYUwl}>
           Payment History
         </Text>
-        <FlatList
-          data={payments}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          onRefresh={getPayments}
-          refreshing={refresh}
-        />
+        <FlatList data={payments} renderItem={renderItem} keyExtractor={item => item.id} onRefresh={getPayments} refreshing={refresh} />
       </View>
-    </View>
-  );
+    </View>;
 };
 
 export default {
   title: "Payments",
   navigator: Payments
 };
+
+const _styles = StyleSheet.create({
+  wmqnYUwl: {
+    marginHorizontal: 15,
+    marginTop: 15,
+    paddingBottom: 10
+  }
+});

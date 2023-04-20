@@ -1,30 +1,34 @@
 // @ts-ignore
 import React, { Fragment, useState, useContext } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native"; // @ts-ignore
 // @ts-ignore
-// @ts-ignore
-import { Surface } from "gl-react-native";
-// @ts-ignore
+
+import { Surface } from "gl-react-native"; // @ts-ignore
+
 import ImageFilters from "react-native-gl-image-filters";
 import Filter from "../../Components/Filters";
 import Tabs from "../../Components/Tabs";
 import { OptionsContext } from "@options";
-import { reSizeImage } from "../../Utils/common";
-// @ts-ignore
+import { reSizeImage } from "../../Utils/common"; // @ts-ignore
+
 import Button from "../../Components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { setImageUri } from "../../Store";
 import Header from "../../Components/Header";
 
-const Filters = ({ navigation }) => {
+const Filters = ({
+  navigation
+}) => {
   const options = useContext(OptionsContext);
   const dispatch = useDispatch();
   const state = useSelector(state => state.uri);
-  const [imageContainerHW, setImageContainerHW] = useState({ w: state.width, h: state.height });
+  const [imageContainerHW, setImageContainerHW] = useState({
+    w: state.width,
+    h: state.height
+  });
   const [editsRef, setEditsRef] = useState(null);
   const width = Dimensions.get("window").width;
-  const [filterSettings, setFilterSettings] = useState({
-    ...options.settings,
+  const [filterSettings, setFilterSettings] = useState({ ...options.settings,
     hue: 0,
     blur: 0,
     sepia: 0,
@@ -36,12 +40,14 @@ const Filters = ({ navigation }) => {
     temperature: 6500
   });
 
-  const handleState = (tab) => {
+  const handleState = tab => {
     navigation.replace(tab);
   };
 
   const selectFilter = (filter, settings) => {
-    setFilterSettings({ ...filterSettings, ...settings });
+    setFilterSettings({ ...filterSettings,
+      ...settings
+    });
   };
 
   const saveImage = async () => {
@@ -56,8 +62,7 @@ const Filters = ({ navigation }) => {
           h: response.height
         });
         dispatch(setImageUri(response));
-        setFilterSettings({
-          ...options.settings,
+        setFilterSettings({ ...options.settings,
           hue: 0,
           blur: 0,
           sepia: 0,
@@ -74,15 +79,19 @@ const Filters = ({ navigation }) => {
     });
   };
 
-  return (
-    <Fragment>
+  return <Fragment>
       <Header></Header>
-      <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ScrollView style={styles.gfhniXka}>
         <View style={styles.container}>
-          <View style={[styles.imgContainer, { width: imageContainerHW.w, maxWidth: width }]}>
+          <View style={[styles.imgContainer, {
+          width: imageContainerHW.w,
+          maxWidth: width
+        }]}>
             <Surface style={styles.imgContent} ref={setEditsRef}>
               <ImageFilters {...filterSettings} width={width} height={width}>
-                {{ uri: state.uri }}
+                {{
+                uri: state.uri
+              }}
               </ImageFilters>
             </Surface>
 
@@ -96,22 +105,44 @@ const Filters = ({ navigation }) => {
         </View>
 
       </ScrollView>
-    </Fragment>
-  );
+    </Fragment>;
 };
-export default Filters;
 
+export default Filters;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
     padding: 10
   },
-  headingText: { fontSize: 14, fontWeight: "bold", lineHeight: 16.41, color: "#1E2022" },
-  imgContainer: { display: "flex", alignSelf: "center", maxHeight: 400 },
-  imgContent: { width: "100%", height: "100%", borderRadius: 10 },
-  topSection: { marginVertical: 20, marginHorizontal: 28, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  editImage: { height: "100%", width: "100%", borderRadius: 10 },
+  headingText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    lineHeight: 16.41,
+    color: "#1E2022"
+  },
+  imgContainer: {
+    display: "flex",
+    alignSelf: "center",
+    maxHeight: 400
+  },
+  imgContent: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 10
+  },
+  topSection: {
+    marginVertical: 20,
+    marginHorizontal: 28,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  editImage: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 10
+  },
   tabContent: {
     padding: 20
   },
@@ -127,7 +158,12 @@ const styles = StyleSheet.create({
     width: "120%",
     left: -30
   },
-  cropScreen: { height: "100%", flexDirection: "column", justifyContent: "flex-end", alignItems: "center" },
+  cropScreen: {
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
   item: {
     backgroundColor: "#f9c2ff",
     padding: 20,
@@ -140,6 +176,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18
   },
-  cancelBtn: { fontSize: 14, fontWeight: "bold", marginLeft: 20, backgroundColor: "#000", color: "#fff", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 15 },
-  saveContainer: { flexDirection: "row", justifyContent: "center", alignItems: "center" }
+  cancelBtn: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginLeft: 20,
+    backgroundColor: "#000",
+    color: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 15
+  },
+  saveContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  gfhniXka: {
+    backgroundColor: "#fff"
+  }
 });

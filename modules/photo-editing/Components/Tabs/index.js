@@ -1,13 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const Tabs = ({ selectedTab, handleState }) => {
-  return (
-    <View style={styles.tabView}>
-      <View style={[styles.tabItem, selectedTab === "crop" && styles.selectedTab]} >
+const Tabs = ({
+  selectedTab,
+  handleState
+}) => {
+  return <View style={styles.tabView}>
+      <View style={[styles.tabItem, selectedTab === "crop" && styles.selectedTab]}>
         <Text onPress={() => handleState("crop")}>Crop</Text>
       </View>
-      <View style={[styles.tabItem, selectedTab === "filter" && styles.selectedTab]} >
+      <View style={[styles.tabItem, selectedTab === "filter" && styles.selectedTab]}>
         <Text onPress={() => handleState("filter")}>Filters</Text>
       </View>
       <View style={[styles.tabItem, selectedTab === "edit" && styles.selectedTab]}>
@@ -16,12 +18,10 @@ const Tabs = ({ selectedTab, handleState }) => {
       <View style={[styles.tabItem, selectedTab === "shadow" && styles.selectedTab]}>
         <Text onPress={() => handleState("shadow")}>Shadows</Text>
       </View>
-    </View>
-  );
+    </View>;
 };
 
 export default Tabs;
-
 const styles = StyleSheet.create({
   tabView: {
     width: "100%",

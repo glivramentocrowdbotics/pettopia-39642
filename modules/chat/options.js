@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-
 const styles = StyleSheet.create({
   textInput: {
     paddingVertical: 4,
@@ -54,35 +53,27 @@ export const ListViewStyle = StyleSheet.create({
     paddingBottom: 12
   }
 });
-
 const PUBNUB_PUB = "Your pubnub publish key";
 const PUBNUB_SUB = "Your pubnub subscribe key";
 const FILESTACK_KEY = "AAPKloXQDQy61KlIW09M6z";
-
 const user = {
   name: "Mark Kelley",
   _id: "user_a00001",
   avatar: "https://randomuser.me/api/portraits/men/1.jpg"
 };
-
-export const users = [
-  {
-    name: "Anna Gordon",
-    _id: "user_a00002",
-    avatar: "https://randomuser.me/api/portraits/women/1.jpg"
-  },
-  {
-    name: "Luis Griffin",
-    _id: "user_a00003",
-    avatar: "https://randomuser.me/api/portraits/men/2.jpg"
-  },
-  {
-    name: "Sue Flores",
-    _id: "user_a00004",
-    avatar: "https://randomuser.me/api/portraits/women/2.jpg"
-  }
-];
-
+export const users = [{
+  name: "Anna Gordon",
+  _id: "user_a00002",
+  avatar: "https://randomuser.me/api/portraits/women/1.jpg"
+}, {
+  name: "Luis Griffin",
+  _id: "user_a00003",
+  avatar: "https://randomuser.me/api/portraits/men/2.jpg"
+}, {
+  name: "Sue Flores",
+  _id: "user_a00004",
+  avatar: "https://randomuser.me/api/portraits/women/2.jpg"
+}];
 export default {
   PUBNUB_SUB: PUBNUB_SUB,
   PUBNUB_PUB: PUBNUB_PUB,

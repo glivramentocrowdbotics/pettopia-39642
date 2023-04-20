@@ -5,7 +5,10 @@ import { fetchNotifications } from "./api";
 
 const Notifications = () => {
   const options = useContext(OptionsContext);
-  const { authToken, styles } = options;
+  const {
+    authToken,
+    styles
+  } = options;
   const [messages, setMessages] = useState([]);
   const [refresh, setRefresh] = useState(true);
 
@@ -20,18 +23,18 @@ const Notifications = () => {
     getNotifications();
   }, []);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({
+    item
+  }) => {
     const date = item?.created;
     const arr1 = date.split("T");
     const time = arr1[1].split(".");
-    return (
-            <View style={styles.walletCard}>
+    return <View style={styles.walletCard}>
                 <View style={styles.walletInner}>
                     <View style={styles.imgContainer}>
-                        <Image
-                            source={{ uri: item?.image || "https://img.freepik.com/premium-vector/message-app-icon-paper-cut-style-social-media-icons_505135-255.jpg?w=100" }}
-                            style={styles.image}
-                        />
+                        <Image source={{
+            uri: item?.image || "https://img.freepik.com/premium-vector/message-app-icon-paper-cut-style-social-media-icons_505135-255.jpg?w=100"
+          }} style={styles.image} />
                     </View>
                     <View style={styles.walletCarder}>
                         <Text style={styles.eventName}>{item?.title}</Text>
@@ -42,28 +45,17 @@ const Notifications = () => {
                     <Text style={styles.view}>Date: {arr1[0]}</Text>
                     <Text style={styles.reject}>Time: {time[0]}</Text>
                 </View>
-            </View>
-    );
+            </View>;
   };
 
-  return (
-        <View>
-            <Text
-                style={styles.listStyle}
-            >
+  return <View>
+            <Text style={styles.listStyle}>
                 Notifications List
             </Text>
 
-            <FlatList
-                data={messages}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                onRefresh={getNotifications}
-                refreshing={refresh}
-            />
+            <FlatList data={messages} renderItem={renderItem} keyExtractor={item => item.id} onRefresh={getNotifications} refreshing={refresh} />
 
-        </View>
-  );
+        </View>;
 };
 
 export default Notifications;

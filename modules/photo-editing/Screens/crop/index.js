@@ -1,7 +1,6 @@
 // @ts-ignore
 import React, { Fragment, useState, useContext } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
-
 import Button from "../../Components/Button";
 import { CropRatioIcon } from "../../Components/CropRatioIcon";
 import Tabs from "../../Components/Tabs";
@@ -11,18 +10,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { setImageUri } from "../../Store";
 import Header from "../../Components/Header";
 
-const Crop = ({ navigation }) => {
+const Crop = ({
+  navigation
+}) => {
   const options = useContext(OptionsContext);
   const dispatch = useDispatch();
   const state = useSelector(state => state.uri);
-  const [imageContainerHW, setImageContainerHW] = useState({ w: state.width, h: state.height });
+  const [imageContainerHW, setImageContainerHW] = useState({
+    w: state.width,
+    h: state.height
+  });
   const width = Dimensions.get("window").width;
   const [selectedCropRatioItem, setSelectedCropRatioItem] = useState(null);
 
-  const handleCropRatioPress = (option) => {
+  const handleCropRatioPress = option => {
     setSelectedCropRatioItem(option);
     Image.getSize(state.uri, (wImage, hImage) => {
-      const w = Math.ceil((hImage * (option.horizontal_ratio / option.vertical_ratio)));
+      const w = Math.ceil(hImage * (option.horizontal_ratio / option.vertical_ratio));
       const h = hImage;
       reSizeImage(state.uri, w, h).then(response => {
         setImageContainerHW({
@@ -36,7 +40,7 @@ const Crop = ({ navigation }) => {
     });
   };
 
-  const handleState = (tab) => {
+  const handleState = tab => {
     navigation.replace(tab);
   };
 
@@ -58,22 +62,22 @@ const Crop = ({ navigation }) => {
     });
   };
 
-  return (
-    <Fragment>
+  return <Fragment>
       <Header></Header>
-      <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ScrollView style={styles.fGounhIB}>
         <View style={styles.container}>
-          <View style={[styles.imgContainer, { width: imageContainerHW.w, maxWidth: width }]}>
-            <Image resizeMode="contain" style={styles.imgContent} source={{ uri: state.uri }} />
+          <View style={[styles.imgContainer, {
+          width: imageContainerHW.w,
+          maxWidth: width
+        }]}>
+            <Image resizeMode="contain" style={styles.imgContent} source={{
+            uri: state.uri
+          }} />
           </View>
           <Tabs selectedTab="crop" handleState={handleState} />
           <View style={styles.tabContent}>
             <View style={styles.cropContainer}>
-              {
-                options.ratio.map((option, index) =>
-                  <CropRatioIcon option={option} key={index} selectionColor={selectedCropRatioItem?.label} handlePress={handleCropRatioPress} />
-                )
-              }
+              {options.ratio.map((option, index) => <CropRatioIcon option={option} key={index} selectionColor={selectedCropRatioItem?.label} handlePress={handleCropRatioPress} />)}
             </View>
 
           </View>
@@ -82,20 +86,31 @@ const Crop = ({ navigation }) => {
         </View>
 
       </ScrollView>
-    </Fragment>
-  );
+    </Fragment>;
 };
-export default Crop;
 
+export default Crop;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
     padding: 10
   },
-  imgContainer: { display: "flex", alignSelf: "center", maxHeight: 400 },
-  imgContent: { width: "100%", height: "100%", borderRadius: 10 },
-  editImage: { height: "100%", width: "100%", borderRadius: 10 },
+  imgContainer: {
+    display: "flex",
+    alignSelf: "center",
+    maxHeight: 400
+  },
+  imgContent: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 10
+  },
+  editImage: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 10
+  },
   tabContent: {
     padding: 20
   },
@@ -111,7 +126,12 @@ const styles = StyleSheet.create({
     width: "120%",
     left: -30
   },
-  cropScreen: { height: "100%", flexDirection: "column", justifyContent: "flex-end", alignItems: "center" },
+  cropScreen: {
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
   item: {
     backgroundColor: "#f9c2ff",
     padding: 20,
@@ -123,5 +143,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18
+  },
+  fGounhIB: {
+    backgroundColor: "#fff"
   }
 });

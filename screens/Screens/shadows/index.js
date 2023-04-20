@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, { Fragment, useState, useContext } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
-// @ts-ignore
+import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native"; // @ts-ignore
+
 import { Surface } from "gl-react-native";
 import Button from "../../Components/Button";
 import ShadowBlurs from "../../Components/ShadowBlur";
@@ -14,27 +14,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { setImageUri } from "../../Store";
 import Header from "../../Components/Header";
 
-const Shadows = ({ navigation }) => {
+const Shadows = ({
+  navigation
+}) => {
   const options = useContext(OptionsContext);
   const dispatch = useDispatch();
   const state = useSelector(state => state.uri);
-  const [imageContainerHW, setImageContainerHW] = useState({ w: state.width, h: state.height });
+  const [imageContainerHW, setImageContainerHW] = useState({
+    w: state.width,
+    h: state.height
+  });
   const [editsRef, setEditsRef] = useState(null);
   const width = Dimensions.get("window").width;
   const [selectedShadow, setSelectedShadow] = useState(options.SHADOWS[0].url);
+  const [blurSettings, setBlurSettings] = useState({
+    Blur: 1,
+    "Blur Passes": 1
+  });
 
-  const [blurSettings, setBlurSettings] = useState({ Blur: 1, "Blur Passes": 1 });
-
-  const handleState = (tab) => {
+  const handleState = tab => {
     navigation.replace(tab);
   };
 
-  const handleBlurImage = (shadow) => {
+  const handleBlurImage = shadow => {
     setSelectedShadow(shadow);
   };
 
   const handleBlur = (name, value) => {
-    setBlurSettings({ ...blurSettings, [name]: value });
+    setBlurSettings({ ...blurSettings,
+      [name]: value
+    });
   };
 
   const saveImage = async () => {
@@ -49,22 +58,31 @@ const Shadows = ({ navigation }) => {
           h: response.height
         });
         dispatch(setImageUri(response));
-        setBlurSettings({ Blur: 1, "Blur Passes": 1 });
+        setBlurSettings({
+          Blur: 1,
+          "Blur Passes": 1
+        });
       }).catch(error => {
         console.log("error", error);
       });
     });
   };
 
-  return (
-    <Fragment>
+  return <Fragment>
       <Header></Header>
-      <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ScrollView style={styles.eIwZcJGP}>
         <View style={styles.container}>
-          <View style={[styles.imgContainer, { width: imageContainerHW.w, maxWidth: width }]}>
+          <View style={[styles.imgContainer, {
+          width: imageContainerHW.w,
+          maxWidth: width
+        }]}>
             <Surface style={styles.imgContent} ref={setEditsRef}>
-              <BlurV map={{ uri: selectedShadow }} passes={blurSettings["Blur Passes"]} factor={blurSettings.Blur}>
-                {{ uri: state.uri }}
+              <BlurV map={{
+              uri: selectedShadow
+            }} passes={blurSettings["Blur Passes"]} factor={blurSettings.Blur}>
+                {{
+                uri: state.uri
+              }}
               </BlurV>
             </Surface>
 
@@ -72,14 +90,7 @@ const Shadows = ({ navigation }) => {
           <Tabs selectedTab="shadow" handleState={handleState} />
           <View style={styles.tabContent}>
             <View style={styles.filterContainer}>
-              {options.blurShadows.map((shadow) =>
-                <ShadowBlurs key={shadow.name}
-                  name={shadow.name}
-                  minimum={shadow.minValue}
-                  maximum={shadow.maxValue}
-                  value={shadow.value}
-                  onChange={handleBlur} />)
-              }
+              {options.blurShadows.map(shadow => <ShadowBlurs key={shadow.name} name={shadow.name} minimum={shadow.minValue} maximum={shadow.maxValue} value={shadow.value} onChange={handleBlur} />)}
               <ShadowsList handleBlurImage={handleBlurImage} />
             </View>
 
@@ -89,22 +100,44 @@ const Shadows = ({ navigation }) => {
         </View>
 
       </ScrollView>
-    </Fragment>
-  );
+    </Fragment>;
 };
-export default Shadows;
 
+export default Shadows;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
     padding: 10
   },
-  headingText: { fontSize: 14, fontWeight: "bold", lineHeight: 16.41, color: "#1E2022" },
-  imgContainer: { display: "flex", alignSelf: "center", maxHeight: 400 },
-  imgContent: { width: "100%", height: "100%", borderRadius: 10 },
-  topSection: { marginVertical: 20, marginHorizontal: 28, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  editImage: { height: "100%", width: "100%", borderRadius: 10 },
+  headingText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    lineHeight: 16.41,
+    color: "#1E2022"
+  },
+  imgContainer: {
+    display: "flex",
+    alignSelf: "center",
+    maxHeight: 400
+  },
+  imgContent: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 10
+  },
+  topSection: {
+    marginVertical: 20,
+    marginHorizontal: 28,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  editImage: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 10
+  },
   tabContent: {
     padding: 20
   },
@@ -120,7 +153,12 @@ const styles = StyleSheet.create({
     width: "120%",
     left: -30
   },
-  cropScreen: { height: "100%", flexDirection: "column", justifyContent: "flex-end", alignItems: "center" },
+  cropScreen: {
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
   item: {
     backgroundColor: "#f9c2ff",
     padding: 20,
@@ -133,6 +171,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18
   },
-  cancelBtn: { fontSize: 14, fontWeight: "bold", marginLeft: 20, backgroundColor: "#000", color: "#fff", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 15 },
-  saveContainer: { flexDirection: "row", justifyContent: "center", alignItems: "center" }
+  cancelBtn: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginLeft: 20,
+    backgroundColor: "#000",
+    color: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 15
+  },
+  saveContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  eIwZcJGP: {
+    backgroundColor: "#fff"
+  }
 });

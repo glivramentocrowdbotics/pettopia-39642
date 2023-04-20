@@ -13,30 +13,28 @@ const Header = () => {
 
   const savePicture = async () => {
     setIsLoading(true);
+
     if (Platform.OS === "android" && !(await hasAndroidPermission())) {
       return;
     }
-    await CameraRoll.save(state.uri, { type: "photo" });
+
+    await CameraRoll.save(state.uri, {
+      type: "photo"
+    });
     setIsLoading(false);
-    Alert.alert(
-      "info",
-      "Photo saved in Gallery.",
-      [
-        {
-          text: "Ok",
-          onPress: cancelEditing
-        }
-      ],
-      { cancelable: false }
-    );
+    Alert.alert("info", "Photo saved in Gallery.", [{
+      text: "Ok",
+      onPress: cancelEditing
+    }], {
+      cancelable: false
+    });
   };
 
   const cancelEditing = () => {
     navigation.navigate("imagePicker");
   };
 
-  return (
-        <Fragment>
+  return <Fragment>
             {isLoading && <Loader />}
             <View style={styles.topSection}>
                 <Text style={styles.headingText}>Image editing</Text>
@@ -45,16 +43,42 @@ const Header = () => {
                     <Text style={styles.cancelBtn} onPress={cancelEditing}>X</Text>
                 </View>
             </View>
-        </Fragment>
-  );
+        </Fragment>;
 };
 
 const styles = StyleSheet.create({
-  headingText: { fontSize: 14, fontWeight: "bold", lineHeight: 16.41, color: "#1E2022" },
-  imgContainer: { display: "flex", alignSelf: "center", maxHeight: 400 },
-  topSection: { marginVertical: 20, marginHorizontal: 28, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  cancelBtn: { fontSize: 14, fontWeight: "bold", marginLeft: 20, backgroundColor: "#000", color: "#fff", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 15 },
-  saveContainer: { flexDirection: "row", justifyContent: "center", alignItems: "center" }
+  headingText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    lineHeight: 16.41,
+    color: "#1E2022"
+  },
+  imgContainer: {
+    display: "flex",
+    alignSelf: "center",
+    maxHeight: 400
+  },
+  topSection: {
+    marginVertical: 20,
+    marginHorizontal: 28,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  cancelBtn: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginLeft: 20,
+    backgroundColor: "#000",
+    color: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 15
+  },
+  saveContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
-
 export default Header;

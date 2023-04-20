@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-
 const styles = StyleSheet.create({
   heading: {
     height: 60,
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
     fontSize: 16
   }
 });
-
 export default {
   buttonText: "+ Take Photo",
   styles: styles

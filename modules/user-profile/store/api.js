@@ -1,10 +1,12 @@
 import axios from "axios";
-
 const SERVICE_URL = "https://your-app.botics.co"; // your app back-end url
 
 const usersAPI = axios.create({
   baseURL: SERVICE_URL,
-  headers: { Accept: "application/json", "Content-Type": "application/json" }
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json"
+  }
 });
 
 function getUserById(id) {

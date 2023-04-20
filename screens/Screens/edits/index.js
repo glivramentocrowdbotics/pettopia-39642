@@ -1,9 +1,9 @@
 // @ts-ignore
 import React, { Fragment, useState, useContext } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
-// @ts-ignore
-import { Surface } from "gl-react-native";
-// @ts-ignore
+import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native"; // @ts-ignore
+
+import { Surface } from "gl-react-native"; // @ts-ignore
+
 import ImageFilters from "react-native-gl-image-filters";
 import Tabs from "../../Components/Tabs";
 import { OptionsContext } from "@options";
@@ -14,28 +14,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { setImageUri } from "../../Store";
 import Header from "../../Components/Header";
 
-const Edits = ({ navigation }) => {
+const Edits = ({
+  navigation
+}) => {
   const options = useContext(OptionsContext);
   const dispatch = useDispatch();
   const state = useSelector(state => state.uri);
-  const [imageContainerHW, setImageContainerHW] = useState({ w: state.width, h: state.height });
+  const [imageContainerHW, setImageContainerHW] = useState({
+    w: state.width,
+    h: state.height
+  });
   const [editsRef, setEditsRef] = useState(null);
   const width = Dimensions.get("window").width;
-
-  const [editSettings, setEditSettings] = useState({
-    ...options.settings,
+  const [editSettings, setEditSettings] = useState({ ...options.settings,
     contrast: 1,
     saturation: 1,
     brightness: 1,
     temperature: 6500
   });
 
-  const handleState = (tab) => {
+  const handleState = tab => {
     navigation.replace(tab);
   };
 
   const handleFilter = (name, value) => {
-    setEditSettings({ ...editSettings, [name]: value });
+    setEditSettings({ ...editSettings,
+      [name]: value
+    });
   };
 
   const saveImage = async () => {
@@ -50,8 +55,7 @@ const Edits = ({ navigation }) => {
           h: response.height
         });
         dispatch(setImageUri(response));
-        setEditSettings({
-          ...options.settings,
+        setEditSettings({ ...options.settings,
           contrast: 1,
           saturation: 1,
           brightness: 1,
@@ -63,53 +67,69 @@ const Edits = ({ navigation }) => {
     });
   };
 
-  return (
-    <Fragment>
+  return <Fragment>
       <Header></Header>
-      <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ScrollView style={styles.ndIsbrKE}>
         <View style={styles.container}>
-          <View style={[styles.imgContainer, { width: imageContainerHW.w, maxWidth: width }]}>
+          <View style={[styles.imgContainer, {
+          width: imageContainerHW.w,
+          maxWidth: width
+        }]}>
             <Surface style={styles.imgContent} ref={setEditsRef}>
               <ImageFilters {...editSettings} width={width} height={width}>
-                {{ uri: state.uri }}
+                {{
+                uri: state.uri
+              }}
               </ImageFilters>
             </Surface>
           </View>
           <Tabs selectedTab="edit" handleState={handleState} />
           <View style={styles.tabContent}>
-            {options.settings.map((filter) => (
-              <EditSliders
-                key={filter.name}
-                name={filter.name}
-                minimum={filter.minValue}
-                maximum={filter.maxValue}
-                value={filter.value}
-                onChange={handleFilter}
-              />
-            ))
-            }
+            {options.settings.map(filter => <EditSliders key={filter.name} name={filter.name} minimum={filter.minValue} maximum={filter.maxValue} value={filter.value} onChange={handleFilter} />)}
           </View>
 
           <Button onPress={saveImage}>Apply</Button>
         </View>
 
       </ScrollView>
-    </Fragment>
-  );
+    </Fragment>;
 };
-export default Edits;
 
+export default Edits;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
     padding: 10
   },
-  headingText: { fontSize: 14, fontWeight: "bold", lineHeight: 16.41, color: "#1E2022" },
-  imgContainer: { display: "flex", alignSelf: "center", maxHeight: 400 },
-  imgContent: { width: "100%", height: "100%", borderRadius: 10 },
-  topSection: { marginVertical: 20, marginHorizontal: 28, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  editImage: { height: "100%", width: "100%", borderRadius: 10 },
+  headingText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    lineHeight: 16.41,
+    color: "#1E2022"
+  },
+  imgContainer: {
+    display: "flex",
+    alignSelf: "center",
+    maxHeight: 400
+  },
+  imgContent: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 10
+  },
+  topSection: {
+    marginVertical: 20,
+    marginHorizontal: 28,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  editImage: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 10
+  },
   tabContent: {
     padding: 20
   },
@@ -125,7 +145,12 @@ const styles = StyleSheet.create({
     width: "120%",
     left: -30
   },
-  cropScreen: { height: "100%", flexDirection: "column", justifyContent: "flex-end", alignItems: "center" },
+  cropScreen: {
+    height: "100%",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
   item: {
     backgroundColor: "#f9c2ff",
     padding: 20,
@@ -138,6 +163,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18
   },
-  cancelBtn: { fontSize: 14, fontWeight: "bold", marginLeft: 20, backgroundColor: "#000", color: "#fff", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 15 },
-  saveContainer: { flexDirection: "row", justifyContent: "center", alignItems: "center" }
+  cancelBtn: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginLeft: 20,
+    backgroundColor: "#000",
+    color: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 15
+  },
+  saveContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  ndIsbrKE: {
+    backgroundColor: "#fff"
+  }
 });
