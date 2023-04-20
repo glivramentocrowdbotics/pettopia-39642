@@ -15,7 +15,7 @@ const Login2 = () => {
       </View>
       <View>
         <Pressable><View style={styles.emailContainer}>
-          <Text style={styles.mr10}>Email address</Text>
+          <Pressable><Text style={styles.mr10}>Email address</Text></Pressable>
           <Input placeholder="Email" />
         </View></Pressable>
         <View style={styles.mb20}>
