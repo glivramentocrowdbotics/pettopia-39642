@@ -1,9 +1,13 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 import { Text, StyleSheet, View, TouchableHighlight, Image, ScrollView } from "react-native";
 
-const ImageEditingEdit = params => {
+const ImageEditingEdit = () => {
+  const navigation = useNavigation();
   return <ScrollView>
-    <View style={styles.container}>
+    <Pressable onPress={() => {
+      navigation.navigate("Photo editing");
+    }}><View style={styles.container}>
       <View style={styles.head}>
         <Text>Image editing</Text>
         <View style={styles.imageContainer}>
@@ -41,7 +45,7 @@ const ImageEditingEdit = params => {
       <View style={styles.btn}>
         <Button>Apply</Button>
       </View>
-    </View>
+    </View></Pressable>
     </ScrollView>;
 };
 
@@ -96,33 +100,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
-  screenImage: {
-    justifyContent: "flex-end",
-    alignItems: "center"
-  },
   btn: {
     paddingHorizontal: "10%",
     paddingTop: "10%",
     paddingBottom: 20
-  },
-  text: {
-    color: "#77838F"
-  },
-  progressContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: 10
-  },
-  property: {
-    color: "#77838F",
-    marginRight: 20,
-    width: "20%"
-  },
-  image: {
-    height: 14,
-    width: "60%",
-    marginRight: 8
   },
   filter: {
     height: 130,

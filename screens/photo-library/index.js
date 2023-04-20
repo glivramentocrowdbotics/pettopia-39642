@@ -6,7 +6,7 @@ const PhotoLibraryScreen = () => {
   const navigation = useNavigation();
   return <View style={styles.container}>
       <Pressable onPress={() => {
-      navigation.navigate("Photo editing");
+      navigation.navigate("photoFilter");
     }}><Text style={styles.headingTxt}>Photo Library Screen</Text></Pressable>
     </View>;
 };
