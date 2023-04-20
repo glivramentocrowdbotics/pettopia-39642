@@ -1,4 +1,4 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Text, View, StyleSheet, Image, ImageBackground, Pressable } from "react-native";
 
 const InAppTutorial = () => {
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
 export default InAppTutorial;
 
 const Button = params => {
+  const navigation = useNavigation();
   const backgroundColor = params.color || "#000";
   const textColor = params.textColor || "#fff";
   const btnStyle = {
@@ -63,7 +64,9 @@ const Button = params => {
   const btnText = {
     color: textColor
   };
-  return <View style={[buttonStyles.btnContainer, params.style]}>
+  return <Pressable onPress={() => {
+    navigation.navigate("signup");
+  }}><View style={[buttonStyles.btnContainer, params.style]}>
       <View style={!params.hideShadow ? buttonStyles.shadowContainer : null}>
         <Pressable style={[buttonStyles.btn, btnStyle]} onPress={params.onPress}>
           <Text style={[buttonStyles.btnText, btnText]}>
@@ -72,7 +75,7 @@ const Button = params => {
           <View style={styles.childrenContainer}>{params.children}</View>
         </Pressable>
       </View>
-    </View>;
+    </View></Pressable>;
 };
 
 const buttonStyles = StyleSheet.create({
@@ -98,9 +101,5 @@ const buttonStyles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold"
-  },
-  childrenContainer: {
-    justifyContent: "center",
-    alignItems: "center"
   }
 });
