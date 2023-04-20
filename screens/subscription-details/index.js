@@ -1,13 +1,16 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Text, View, StyleSheet, Image, ScrollView, Pressable } from "react-native";
 
 const SubscriptionDetails = () => {
+  const navigation = useNavigation();
   return <ScrollView style={styles.container}>
-      <View style={styles.header}>
+      <Pressable onPress={() => {
+      navigation.navigate("userSubscribed");
+    }}><View style={styles.header}>
         <Image source={require("./assets/back.png")} style={styles.back} />
         <Text style={styles.heading}>Subscription</Text>
         <Text />
-      </View>
+      </View></Pressable>
       <View style={styles.reviewContainer}>
         <Text style={styles.review}>Current Subscription</Text>
         <Text style={styles.edit}>Free</Text>
@@ -148,10 +151,6 @@ const buttonStyles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold"
-  },
-  childrenContainer: {
-    justifyContent: "center",
-    alignItems: "center"
   }
 });
 export default SubscriptionDetails;

@@ -12,9 +12,11 @@ const Login2 = () => {
   };
 
   return <View style={styles.container}>
-      <View style={styles.heading}>
+      <Pressable onPress={() => {
+      navigation.navigate("userProfile");
+    }}><View style={styles.heading}>
         <Text style={styles.headingText}>Log in</Text>
-      </View>
+      </View></Pressable>
       <View>
         <Pressable><View style={styles.emailContainer}>
           <Pressable><Text style={styles.mr10}>Email address</Text></Pressable>
