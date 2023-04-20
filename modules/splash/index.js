@@ -1,4 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
+import { useEffect, useContext } from "react";
 import { View } from "react-native";
 import PropTypes from "prop-types";
 import { OptionsContext } from "@options";
@@ -7,6 +9,7 @@ const Splash = ({
   duration,
   onDurationEnd
 }) => {
+  const navigation = useNavigation();
   const options = useContext(OptionsContext);
 
   const handleDurationEnd = () => {
@@ -30,8 +33,10 @@ const Splash = ({
       handleDurationEnd();
     }
   }, []);
-  return <View>
-    </View>;
+  return <Pressable onPress={() => {
+    navigation.navigate("inAppTutorial");
+  }}><View>
+    </View></Pressable>;
 };
 
 Splash.propTypes = {
