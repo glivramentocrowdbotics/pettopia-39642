@@ -1,3 +1,4 @@
+import { Pressable } from "react-native";
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image, TouchableHighlight, TextInput, StyleSheet } from "react-native";
 
@@ -13,10 +14,10 @@ const Login2 = () => {
         <Text style={styles.headingText}>Log in</Text>
       </View>
       <View>
-        <View style={styles.emailContainer}>
+        <Pressable><View style={styles.emailContainer}>
           <Text style={styles.mr10}>Email address</Text>
           <Input placeholder="Email" />
-        </View>
+        </View></Pressable>
         <View style={styles.mb20}>
           <Text style={styles.mr10}>Password</Text>
           <Input placeholder="Password" />
