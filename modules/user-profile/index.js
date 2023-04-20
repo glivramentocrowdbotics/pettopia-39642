@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
+import { useState, useEffect } from "react";
 import { View, ScrollView, ActivityIndicator, Text } from "react-native";
 import { getUserById, slice } from "./store";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,6 +11,7 @@ import ViewUser from "./view";
 export const UserProfile = ({
   route
 }) => {
+  const navigation = useNavigation();
   const [isEdit, setIsEdit] = useState(false); // code below depends on the existence of any login module - update as needed.
 
   const login = useSelector(state => {
@@ -30,10 +33,14 @@ export const UserProfile = ({
       {api.loading === "pending" ? <View>
           <ActivityIndicator color={Color.steel} />
         </View> : <View>
-          <View>{!user && <Text>No user to display information.</Text>}</View>
-          {user && <View>
+          <View>{!user && <Pressable onPress={() => {
+          navigation.navigate("profileSetupSuccess");
+        }}><Text>No user to display information.</Text></Pressable>}</View>
+          {user && <Pressable onPress={() => {
+        navigation.navigate("termsAndConditions");
+      }}><View>
               {isEdit ? <EditUser user={user} /> : <ViewUser user={user} />}
-            </View>}
+            </View></Pressable>}
         </View>}
     </ScrollView>;
 };
