@@ -12,18 +12,6 @@
     "web:build": "./node_modules/.bin/webpack --config ./webpack.config.js --color --mode production"
   },
   "dependencies": {
-    "@modules/camera": "file:./modules/camera",
-    "@modules/chat": "file:./modules/chat/",
-    "@modules/faq": "file:./modules/faq",
-    "@modules/firebase-push-notifications": "file:./modules/firebase-push-notifications",
-    "@modules/live-camera-filters": "file:./modules/live-camera-filters/",
-    "@modules/maps": "file:./modules/maps/",
-    "@modules/onboarding": "file:./modules/onboarding/",
-    "@modules/payments": "file:./modules/payments",
-    "@modules/photo-editing": "file:./modules/photo-editing/",
-    "@modules/social-login": "file:./modules/social-login/",
-    "@modules/splash": "file:./modules/splash/",
-    "@modules/user-profile": "file:./modules/user-profile/",
     "@react-native-community/cameraroll": "4.1.2",
     "@react-native-community/checkbox": "0.5.10",
     "@react-native-community/masked-view": "^0.1.10",
